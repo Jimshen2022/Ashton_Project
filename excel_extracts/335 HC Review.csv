@@ -1,0 +1,31 @@
+SPAN HC Review,Unnamed: 1,Unnamed: 2,Unnamed: 3,Unnamed: 4,Unnamed: 5,Unnamed: 6,Unnamed: 7,Unnamed: 8,Unnamed: 9,Unnamed: 10,Unnamed: 11,Unnamed: 12
+Week,Period,Dept HC,Terminations,Hires,WC/LOA,Final HC,HC Need,,Definitions,,,
+2026-03-07 00:00:00,MAR,63,0,0,0,63,0,,"Dept HC: SUM of Direct Labor Associates (Shipping, Ecom, CG/UPH Rec, UPH-LC, Transfers)
+Terminations: Forecasted Terminations Based Off Historical Data For Direct Labor Associates
+Hires: Requested Hires for Direct Labor Associates
+WC/LOA: Active Direct Labor Associates WC/LOA
+Working HC: (Dept HC - (Terminations+ WC/LOA))  + Hires
+HC Need: Current Week Working HC - Fiscal Week Working HC",,,
+2026-03-14 00:00:00,MAR,63,0,0,0,63,0,,,,,
+2026-03-21 00:00:00,MAR,63,0,0,0,63,0,,,,,
+2026-03-28 00:00:00,MAR,63,0,0,0,63,0,,,,,
+2026-04-04 00:00:00,APR,63,0,0,0,63,0,,,,,
+2026-04-11 00:00:00,APR,63,0,0,0,63,0,,,,,
+2026-04-18 00:00:00,APR,63,0,0,0,63,0,,,,,
+2026-04-25 00:00:00,APR,63,0,0,0,63,0,,,,,
+2026-05-02 00:00:00,MAY,63,0,0,0,63,0,,,17.87,10.0,40.0
+2026-05-09 00:00:00,MAY,63,0,0,0,63,0,,,17.87,10.0,40.0
+2026-05-16 00:00:00,MAY,63,0,0,0,63,0,,,17.87,10.0,40.0
+2026-05-23 00:00:00,MAY,63,0,0,0,63,0,,,17.87,10.0,40.0
+2026-05-30 00:00:00,JUNE,63,0,0,0,63,0,,,17.87,10.0,40.0
+2026-06-06 00:00:00,JUNE,63,0,0,0,63,0,,,17.87,10.0,40.0
+2026-06-13 00:00:00,JUNE,63,0,0,0,63,0,,,17.87,10.0,40.0
+2026-06-20 00:00:00,JUNE,63,0,0,0,63,0,,,17.87,10.0,40.0
+2026-06-27 00:00:00,JUNE,63,0,0,0,63,0,,,17.87,10.0,40.0
+2026-07-04 00:00:00,JULY,63,0,0,0,63,0,,,17.87,10.0,40.0
+2026-07-11 00:00:00,JULY,63,0,0,0,63,0,,,17.87,10.0,40.0
+2026-07-18 00:00:00,JULY,63,0,0,0,63,0,,,17.87,10.0,40.0
+2026-07-25 00:00:00,JULY,63,0,0,0,63,0,,,17.87,10.0,40.0
+2026-08-01 00:00:00,AUG,63,0,0,0,63,0,,,17.87,10.0,40.0
+2026-08-08 00:00:00,AUG,63,0,0,0,63,0,,,17.87,10.0,40.0
+2026-08-15 00:00:00,AUG,63,0,0,0,63,,,,17.87,10.0,40.0

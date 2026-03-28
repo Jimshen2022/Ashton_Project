@@ -1,0 +1,7 @@
+"Details for Sum of PurchaseOrderPcs - WeekEnding: 3/7/2026, Warehouse: 15 , FinancialDivision: Domestic Bedding (+)",Unnamed: 1,Unnamed: 2,Unnamed: 3,Unnamed: 4,Unnamed: 5,Unnamed: 6,Unnamed: 7,Unnamed: 8,Unnamed: 9,Unnamed: 10,Unnamed: 11
+,,,,,,,,,,,
+Warehouse,WeekEnding,PurchaseOrderPcs,Containers,ProductionPcs,TransferInPcs,TransferInCubes,TransferInTrucks,TransferOutPcs,TransferOutCubes,TranferOutTrucks,FinancialDivision
+15 ,2026-03-07 00:00:00,29541,106,0,472,3178,1,3736,17987,5,Import Casegoods
+15 ,2026-03-07 00:00:00,8289,14,0,40,79,0,35,205,0,Import Bedding
+15 ,2026-03-07 00:00:00,431,3,0,6111,50586,16,121,2409,1,Domestic Casegoods
+15 ,2026-03-07 00:00:00,238,1,0,745,5478,2,287,1706,1,Domestic Bedding

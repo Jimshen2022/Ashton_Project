@@ -1,0 +1,37 @@
+RKD HC Review,Unnamed: 1,Unnamed: 2,Unnamed: 3,Unnamed: 4,Unnamed: 5,Unnamed: 6,Unnamed: 7,Unnamed: 8,Unnamed: 9,Unnamed: 10,Unnamed: 11,Unnamed: 12,Unnamed: 13,Unnamed: 14,Unnamed: 15,Unnamed: 16,Unnamed: 17,Unnamed: 18,Unnamed: 19,Unnamed: 20,Unnamed: 21,Unnamed: 22,Unnamed: 23,Unnamed: 24
+Week,Period,Dept HC,Terminations,Hires,WC/LOA,Labor Share,Final HC,HC Need,,Definitions,,,,,,,,Capacity (45),60 DAY ,RKD,Capacity (50),Weekly Working Hours,Total Hours,Capacity (55)
+2026-02-14 00:00:00,FEB,253.47000000000003,,,,23.75075,253.47000000000003,,,"Dept HC: SUM of Direct Labor Associates (Shipping, Ecom, CG/UPH Rec, UPH-LC, Transfers)
+Terminations: Forecasted Terminations Based Off Historical Data For Direct Labor Associates
+Hires: Requested Hires for Direct Labor Associates
+WC/LOA: Active Direct Labor Associates WC/LOA
+Working HC: (Dept HC - (Terminations+ WC/LOA))  + Hires
+HC Need: Current Week Working HC - Fiscal Week Working HC",,,,,,,,,Horizon Hiring Needs,48.230769230769226,,,,
+2026-02-21 00:00:00,FEB,259.90725,,,,28.380249999999997,259.90725,,,,,,,,,,,,Net Hiring Needs,23,,,,
+2026-02-28 00:00:00,FEB,258.87874999999997,,,,29.6575,258.87874999999997,,,,,,,,,,,,Turnover Hiring Needs,25.23076923076923,,,,
+2026-03-07 00:00:00,MAR,254.61900000000003,,,,30.81575,254.61900000000003,,,,,,,,,,,,,,,,,
+2026-03-14 00:00:00,MAR,262.47475000000003,,,,35.98225,262.47475000000003,,,,,,,,,,,,,,,,,
+2026-03-21 00:00:00,MAR,,,,,0,,,,,,,,,,,,,,,,,,
+2026-03-28 00:00:00,MAR,293,0,0,0,0,293,-7,,,,,,,,,,,,,,,,
+2026-04-04 00:00:00,APR,293,0,7,0,0,300,-13,,,,,,,,,,,,,,,,
+2026-04-11 00:00:00,APR,300,1,7,0,0,306,-16,,,,,,,,,,0,0,0,0,0,0,0
+2026-04-18 00:00:00,APR,306,2,5,0,0,309,-19,,Department Updated 3/24,YTD Hired ,YTD Termed,,,,,,,,,,,,
+2026-04-25 00:00:00,APR,309,3,6,0,0,312,-22,,RKD DOM Warehouse R,1,1,,,,,,,,,,,,
+2026-05-02 00:00:00,MAY,312,3,6,0,0,315,-25,,RKD WHS Receiving,14,11,,,,,,,,,,,,
+2026-05-09 00:00:00,MAY,315,2,5,0,0,318,-25,,RKD WHS Shipping,6,10,,,,,,,,,,,,
+2026-05-16 00:00:00,MAY,318,3,3,0,0,318,-25,,RKD WHS Ship-Transfers,3,2,,,,,,,,,,,,
+2026-05-23 00:00:00,MAY,318,4,4,0,0,318,-25,,RKD WHS UPH Line Clearing,6,5,,,,,,,,,,,,
+2026-05-30 00:00:00,MAY,318,2,2,0,0,318,-25,,RKD WHS UPH Receiving,1,3,,,,,,,,,,,,
+2026-06-06 00:00:00,JUN,318,2,2,0,0,318,-25,,TOTAL HIRE VS TO ,31,32,,,,,,,,,,,,
+2026-06-13 00:00:00,JUN,318,3,3,0,0,318,-25,,,,,,,,,,,,,,,,
+2026-06-20 00:00:00,JUN,318,3,3,0,0,318,-25,,,,,,,,,,,,,,,,
+2026-06-27 00:00:00,JUN,318,3,3,0,0,318,-25,,,,,,,,,,,,,,,,
+2026-07-04 00:00:00,JUL,318,2,2,0,0,318,-25,,,,,,,,,,,,,,,,
+2026-07-11 00:00:00,JUL,318,2,2,0,0,318,-25,,,,,,,,,,,,,,,,
+2026-07-18 00:00:00,JUL,318,2,2,0,0,318,-25,,,,,,,,,,,,,,,,
+2026-07-25 00:00:00,JUL,318,3,3,0,0,318,-25,,,,,,,,,,,,,,,,
+2026-08-01 00:00:00,AUG,318,3,3,0,0,318,-25,,,,,,,,,,,,,,,,
+2026-08-08 00:00:00,AUG,318,2,2,0,0,318,-25,,,,,,,,,,,,,,,,
+2026-08-15 00:00:00,AUG,318,2,2,0,0,318,-25,,,,,,,,,,,,,,,,
+2026-08-22 00:00:00,AUG,318,2,2,0,0,318,-25,,,,,,,,,,,,,,,,
+2026-08-29 00:00:00,AUG,318,2,2,0,0,318,-25,,,,,,,,,,,,,,,,
+2026-09-05 00:00:00,SEP,318,2,2,0,0,318,,,,,,,,,,,,,,,,,

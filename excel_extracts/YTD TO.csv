@@ -1,0 +1,52 @@
+Row Labels,Count of Employee Name
+AFI ARCADIA,5
+DC Receiver,3
+RKD WHS Receiving,2
+RKD WHS UPH Line Clearing,1
+DC Shipper,1
+RKD WHS Shipping,1
+RETURN LIQUIDATION CRD,1
+RKD DOM Warehouse R,1
+AFI CALIFORNIA,16
+Battery Attendant,1
+COL RED WHS Battry Chging,1
+DC Loader CA,7
+COL WHS Ecomm Ship,1
+COL WHS Shipping,6
+DC Receiver CA,7
+COL WHS Receiving,3
+COL WHS UPH Receiving,4
+Whse Transfers CA,1
+COL WHS Transfers,1
+AFI ECRU,34
+DC Shp Rcv Stg MS,34
+ECR WHS Receiving,6
+ECR WHS Shipping,11
+ECR WHS Transfers,3
+ECR WHS UPH Line Clearing,13
+ECR WHS UPH Receiving,1
+AFI MESQUITE,11
+DC Shipper Receiver TX,11
+MSQ WHS Ecomm Ship,1
+MSQ WHS Inv Management,1
+MSQ WHS Receiving,1
+MSQ WHS Shipping,4
+MSQ WHS Transfers,2
+MSQ WHS UPH Receiving,2
+AFI NORTH CAROLINA,30
+DC Receiver NC,5
+ADV WHS Receiving,4
+ADV WHS Uph Line Clearing,1
+DC Shipper NC,24
+ADV WHS Damages Returns,2
+ADV WHS Ecomm Ship,1
+ADV WHS Shipping,21
+Operations Spv,1
+ADV WHS Shipping,1
+AFI PENNSYLVANIA,12
+DC Shipper PA,12
+LPT WHS Ecomm Ship,1
+LPT WHS Receiving,3
+LPT WHS Shipping,6
+LPT WHS Uph Line Clearing,2
+Grand Total,108
