@@ -1,0 +1,138 @@
+table Fct_ReceiptsSQL
+	lineageTag: cbc40e80-b628-40cb-83cb-41d435d2b393
+
+	column Warehouse
+		dataType: string
+		lineageTag: caef5c83-72fa-46f0-9db7-5a746edb5111
+		summarizeBy: none
+		sourceColumn: Warehouse
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekEnding
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 3d457be3-2f1d-4426-9762-18ec556ae4bf
+		summarizeBy: none
+		sourceColumn: WeekEnding
+
+		variation Variation
+			isDefault
+			relationship: a9672968-f576-4ecc-a003-efd71e48376e
+			defaultHierarchy: LocalDateTable_f0fd956b-f2c5-4355-b708-a7e1158f9fc1.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column PurchaseOrderPcs
+		dataType: double
+		lineageTag: ba207a06-5bc5-4a42-8914-1ffc1a9fdede
+		summarizeBy: sum
+		sourceColumn: PurchaseOrderPcs
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Containers
+		dataType: double
+		lineageTag: d75a6d24-e948-43f4-8938-55beeb263263
+		summarizeBy: sum
+		sourceColumn: Containers
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ProductionPcs
+		dataType: double
+		lineageTag: 7e46e00c-0ae3-416d-a6b2-de840a242eb3
+		summarizeBy: sum
+		sourceColumn: ProductionPcs
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TransferInPcs
+		dataType: double
+		lineageTag: ba117b56-9d45-4001-b7bd-c7e9c826e5e5
+		summarizeBy: sum
+		sourceColumn: TransferInPcs
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TransferInCubes
+		dataType: double
+		lineageTag: 55bdee82-9864-4e36-8299-84735a1605e4
+		summarizeBy: sum
+		sourceColumn: TransferInCubes
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TransferInTrucks
+		dataType: double
+		lineageTag: a9bd6f5a-0f59-42c3-9c5c-37ffa589bb8a
+		summarizeBy: sum
+		sourceColumn: TransferInTrucks
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TransferOutPcs
+		dataType: double
+		lineageTag: be7e8d90-a894-4c43-87ca-7f03e7252e5d
+		summarizeBy: sum
+		sourceColumn: TransferOutPcs
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TransferOutCubes
+		dataType: double
+		lineageTag: 7055fb32-1042-459a-98c9-ca1e18d6fad4
+		summarizeBy: sum
+		sourceColumn: TransferOutCubes
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TranferOutTrucks
+		dataType: double
+		lineageTag: ca2e00d8-c914-49df-9e98-40e6541ccf5a
+		summarizeBy: sum
+		sourceColumn: TranferOutTrucks
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column FinancialDivision
+		dataType: string
+		lineageTag: 105109ad-9c26-4de0-abcc-4ae317323868
+		summarizeBy: none
+		sourceColumn: FinancialDivision
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fct_ReceiptsSQL = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("ashley-edw.database.windows.net", "ashley_edw", [Query="SELECT --[spdItem]#(lf)    [spdWarehouse] AS [Warehouse]#(lf)    -- ,[ITEMCLASS]#(lf)-- ,[ComponentFlag]#(lf)    ,[WeekEnding]#(lf)    ,SUM([PurchaseOrderPcs]) AS [PurchaseOrderPcs]#(lf)#(tab),FORMAT(SUM(POCubes) / 2400, 'N0') AS [Containers]#(lf)    ,FORMAT(SUM([ProductionPcs]), 'N0') AS [ProductionPcs]#(lf)  --  ,SUM([POCubes]) AS [POCubes]#(lf)    ,FORMAT(SUM([TransferInPcs]), 'N0') AS [TransferInPcs]#(lf)    ,FORMAT(SUM([TransferInCubes]), 'N0') AS [TransferInCubes]#(lf)#(tab),FORMAT(SUM(TransferInCubes) / 3200, 'N0') AS [TransferInTrucks]#(lf)    ,SUM([TransferOutPcs]) AS [TransferOutPcs]#(lf)    ,FORMAT(SUM([TransferOutCubes]), 'N0') AS [TransferOutCubes]#(lf)#(tab),FORMAT(SUM(TransferOutCubes) / 3300, 'N0') AS [TranferOutTrucks]#(lf)   --,SUM([Cubes]) AS [Cubes]#(lf)    ,[FinancialDivision]#(lf)-- ,[GeneralDescription]#(lf)FROM [PowerBI_SupplyChain].[TotalReceipts]#(lf)WHERE spdWarehouse IN ('1', '15', 'ECR', '17', '5', '42', '28', '335')#(lf)#(tab) AND ITEMCLASS like 'z%'#(lf)#(tab) AND ITEMCLASS not like '%k'#(lf)GROUP BY#(lf)#(tab)spdWarehouse#(lf)#(tab),WeekEnding#(lf)#(tab),FinancialDivision#(lf)ORDER BY CAST(WeekEnding  AS DATE), warehouse, FinancialDivision", CreateNavigationProperties=false]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Containers", type number}, {"ProductionPcs", type number}, {"TransferInPcs", type number}, {"TransferInCubes", type number}, {"TransferInTrucks", type number}, {"TransferOutCubes", type number}, {"TranferOutTrucks", type number}, {"WeekEnding", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+

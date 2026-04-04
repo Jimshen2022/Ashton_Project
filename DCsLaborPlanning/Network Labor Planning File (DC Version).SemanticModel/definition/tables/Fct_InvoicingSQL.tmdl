@@ -1,0 +1,93 @@
+table Fct_InvoicingSQL
+	lineageTag: 99f8bf2d-6c85-49fc-a0a1-4e01e0d56603
+
+	column Invoice_Date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 93ab85dd-ac15-4f58-870f-f4b1e6cac913
+		summarizeBy: none
+		sourceColumn: Invoice_Date
+
+		variation Variation
+			isDefault
+			relationship: 4ddb0220-9d7d-4c2c-b82d-e26532a915e0
+			defaultHierarchy: LocalDateTable_37bc6076-4fdd-41b8-928b-98e167024b61.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fiscal_WeekEnding
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 75c1f102-b70e-48cd-a5b3-d09bd7243e16
+		summarizeBy: none
+		sourceColumn: Fiscal_WeekEnding
+
+		variation Variation
+			isDefault
+			relationship: 86ea69bf-6b14-4970-a02a-96b78c183733
+			defaultHierarchy: LocalDateTable_fb49fa0d-e475-4ab0-8875-6a59e1fc6b6e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Warehouse
+		dataType: string
+		lineageTag: 32b640e0-5a1a-4f04-a884-9621c9e062a1
+		summarizeBy: none
+		sourceColumn: Warehouse
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Billable Invoicing'
+		dataType: double
+		lineageTag: a053a674-1040-4219-9d46-16095ff9d26e
+		summarizeBy: sum
+		sourceColumn: Billable Invoicing
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Ecommerce Invoicing'
+		dataType: double
+		lineageTag: 2fdd463f-15b0-4cd6-8806-5e599c0f581d
+		summarizeBy: sum
+		sourceColumn: Ecommerce Invoicing
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Billable Volume'
+		dataType: double
+		lineageTag: 4bd0efec-475e-4261-8c60-2905df25d50b
+		summarizeBy: sum
+		sourceColumn: Billable Volume
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Ecommerce Volume'
+		dataType: double
+		lineageTag: 0b557e87-b77c-4313-8c92-8c5d814cc459
+		summarizeBy: sum
+		sourceColumn: Ecommerce Volume
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Fct_InvoicingSQL = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("ashley-edw.database.windows.net", "ASHLEY_EDW", [Query="SELECT #(lf)Invoice_Date#(lf),Fiscal_WeekEnding#(lf),Warehouse#(lf),SUM([Other_Total_Invoice]) AS [Billable Invoicing]#(lf),SUM([Express_Total_Invoice]) AS [Ecommerce Invoicing]#(lf),SUM(Other_QTY_Shipped) AS [Billable Volume]#(lf),SUM(Express_QTY_Shipped) AS [Ecommerce Volume]#(lf)#(lf)FROM PowerBI_Distribution.InvoiceAmount_WarehouseLevel#(lf)WHERE YEAR(Fiscal_WeekEnding)>=2020#(lf)GROUP BY#(lf)Invoice_Date#(lf),Fiscal_WeekEnding#(lf),Warehouse#(lf)", CreateNavigationProperties=false]),
+				    #"Sorted Rows" = Table.Sort(Source,{{"Fiscal_WeekEnding", Order.Descending}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Sorted Rows", each ([Warehouse] = "1  " or [Warehouse] = "15 " or [Warehouse] = "17 " or [Warehouse] = "28 " or [Warehouse] = "335" or [Warehouse] = "42 " or [Warehouse] = "5  " or [Warehouse] = "ECR"))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

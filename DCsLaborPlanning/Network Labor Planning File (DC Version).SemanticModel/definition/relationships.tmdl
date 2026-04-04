@@ -1,0 +1,35 @@
+relationship 215a3642-9d93-4142-9a8e-ae1d005d47fa
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Fct_DemandFulfillmentSQL.WeekEnding
+	toColumn: LocalDateTable_eba9ab1c-b370-456a-a598-e1eaee29f4d7.Date
+
+relationship bf680588-7512-448d-bd31-9876e73fadb1
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Fct_LaborRollups.WeekEnding
+	toColumn: LocalDateTable_ef756742-f12c-49f2-a995-7a5d3511ffb1.Date
+
+relationship 4ddb0220-9d7d-4c2c-b82d-e26532a915e0
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Fct_InvoicingSQL.Invoice_Date
+	toColumn: LocalDateTable_37bc6076-4fdd-41b8-928b-98e167024b61.Date
+
+relationship 86ea69bf-6b14-4970-a02a-96b78c183733
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Fct_InvoicingSQL.Fiscal_WeekEnding
+	toColumn: LocalDateTable_fb49fa0d-e475-4ab0-8875-6a59e1fc6b6e.Date
+
+relationship a9672968-f576-4ecc-a003-efd71e48376e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Fct_ReceiptsSQL.WeekEnding
+	toColumn: LocalDateTable_f0fd956b-f2c5-4355-b708-a7e1158f9fc1.Date
+
+relationship 8c9efda3-08d5-4409-852a-649c6e72b47c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Dim_Calendar.Date
+	toColumn: LocalDateTable_aa89fdb8-025a-4d10-9fc8-33c1f10b2cc4.Date
+
+relationship 85a81b42-26f1-42ed-a4a4-e0c7f5a31b98
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Dim_Calendar.SaturdayDate
+	toColumn: LocalDateTable_b1fe066d-a8da-404f-88d2-ca70c0c002c0.Date
+

@@ -1,0 +1,73 @@
+table Fct_DemandFulfillmentSQL
+	lineageTag: 89cc64bd-9f7e-487e-9016-f53943ef49ec
+
+	column Warehouse
+		dataType: string
+		lineageTag: 112ac106-cdc3-4512-bb4a-8c92123a6082
+		summarizeBy: none
+		sourceColumn: Warehouse
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekEnding
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 6d856d21-f47d-45a3-b263-172667d159d7
+		summarizeBy: none
+		sourceColumn: WeekEnding
+
+		variation Variation
+			isDefault
+			relationship: 215a3642-9d93-4142-9a8e-ae1d005d47fa
+			defaultHierarchy: LocalDateTable_eba9ab1c-b370-456a-a598-e1eaee29f4d7.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column DemandFulfillment
+		dataType: int64
+		lineageTag: ba10ba3b-ab9e-4c98-9052-0f6b97e2b643
+		summarizeBy: sum
+		sourceColumn: DemandFulfillment
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column AFIFinanceDivision
+		dataType: string
+		lineageTag: 889ee0dd-3aaa-467f-bc90-361fa85b6256
+		summarizeBy: none
+		sourceColumn: AFIFinanceDivision
+
+		annotation SummarizationSetBy = Automatic
+
+	column FOBDemandFullfilment
+		dataType: int64
+		lineageTag: 86bcb4bc-1937-48dc-8c6d-9ba3fbe67ffb
+		summarizeBy: sum
+		sourceColumn: FOBDemandFullfilment
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Fct_DemandFulfillmentSQL = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("ashley-edw.database.windows.net", "ashley_edw", [Query="SELECT#(lf)A.spdWarehouse,#(lf)A.spdWeekEnding,#(lf)SUM(A.spdDemandFulfillment) AS spdDemandFulfillment,#(lf)A.AFIFinanceDivision,#(lf)SUM(A.FOBDemandFullfilment) AS FOBDemandFullfilment#(lf) #(lf)FROM#(lf)(#(lf)SELECT#(lf) #(lf)spd.spdItem,#(lf)spd.spdWarehouse,#(lf)spd.spdWeekEnding,#(lf)spd.spdDemandFulfillment,#(lf)itm.AFIFinanceDivision,#(lf)spd.spdDemandFulfillment*FOB.BZANVA AS FOBDemandFullfilment#(lf) #(lf)FROM Wholesale_DemandPlanning_AFI.SupplyPlanDetail AS spd #(lf)JOIN#(lf) #(lf)(SELECT#(lf)MAX(spd.dtea) AS dtea#(lf)FROM Wholesale_DemandPlanning_AFI.SupplyPlanDetail AS spd) AS spd1 ON spd1.dtea = spd.dtea#(lf) #(lf)LEFT JOIN Enterprise_DW.DimItemMaster AS itm ON itm.Item = spd.spdItem#(lf)LEFT JOIN MasterData_ItemMaster_AFI.MBBZREP AS fob ON FOB.BZAITX = SPD.spdItem#(lf) #(lf)WHERE itm.SellableItemFlag = 'Y' AND spd.spdWarehouse NOT IN ('C','60','215','242') AND spd.spdWeekEnding <= DATEADD(mm,6,GETDATE())#(lf) #(lf)) AS A#(lf) #(lf)GROUP BY A.spdWarehouse,#(lf)A.spdWeekEnding,#(lf)A.AFIFinanceDivision", CreateNavigationProperties=false]),
+				    #"Renamed Columns" = Table.RenameColumns(Source,{{"spdWarehouse", "Warehouse"}, {"spdWeekEnding", "WeekEnding"}, {"spdDemandFulfillment", "DemandFulfillment"}}),
+				    #"Extracted Date" = Table.TransformColumns(#"Renamed Columns",{{"WeekEnding", DateTime.Date, type date}}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Extracted Date",{{"DemandFulfillment", Int64.Type}, {"FOBDemandFullfilment", Int64.Type}}),
+				    #"Filtered Rows1" = Table.SelectRows(#"Changed Type", each ([Warehouse] = "1  " or [Warehouse] = "15 " or [Warehouse] = "17 " or [Warehouse] = "28 " or [Warehouse] = "335" or [Warehouse] = "42 " or [Warehouse] = "5  " or [Warehouse] = "ECR")),
+				    #"Filtered Rows" = Table.SelectRows(#"Filtered Rows1", each true),
+				    #"Sorted Rows1" = Table.Sort(#"Filtered Rows",{{"WeekEnding", Order.Ascending}, {"Warehouse", Order.Ascending}})
+				in
+				    #"Sorted Rows1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

@@ -1,0 +1,410 @@
+table Fct_LaborRollups
+	lineageTag: a46fc679-4896-43fb-ab98-a6c5c3004229
+
+	column WeekEnding
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: dff97f81-fa91-478a-8fda-4cffa791f574
+		summarizeBy: none
+		sourceColumn: WeekEnding
+
+		variation Variation
+			isDefault
+			relationship: bf680588-7512-448d-bd31-9876e73fadb1
+			defaultHierarchy: LocalDateTable_ef756742-f12c-49f2-a995-7a5d3511ffb1.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Warehouse
+		dataType: string
+		lineageTag: 3feb6c81-0ba4-47ed-b559-b4e97446392e
+		summarizeBy: none
+		sourceColumn: Warehouse
+
+		annotation SummarizationSetBy = Automatic
+
+	column Warehouse_Desc
+		dataType: string
+		lineageTag: a70d4ad0-cb11-4da0-b29a-44c7ea3625fb
+		summarizeBy: none
+		sourceColumn: Warehouse_Desc
+
+		annotation SummarizationSetBy = Automatic
+
+	column Department
+		dataType: string
+		lineageTag: 77ac1c83-4ca5-4bec-b9fd-6e15578753de
+		summarizeBy: none
+		sourceColumn: Department
+
+		annotation SummarizationSetBy = Automatic
+
+	column Department_Desc
+		dataType: string
+		lineageTag: d5d86d10-f416-44fa-83c0-c3b5e7f89c96
+		summarizeBy: none
+		sourceColumn: Department_Desc
+
+		annotation SummarizationSetBy = Automatic
+
+	column Activity_Desc
+		dataType: string
+		lineageTag: fdc6dec4-8865-498a-b79c-b0f35838c95b
+		summarizeBy: none
+		sourceColumn: Activity_Desc
+
+		annotation SummarizationSetBy = Automatic
+
+	column Hours_Reg_Total
+		dataType: double
+		lineageTag: 218bcca6-d56f-4b8a-b9f5-3e9b85a0b229
+		summarizeBy: sum
+		sourceColumn: Hours_Reg_Total
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Hours_OT_Total
+		dataType: double
+		lineageTag: 0806df8c-598e-4479-bc44-325faa6d4e7d
+		summarizeBy: sum
+		sourceColumn: Hours_OT_Total
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Hours_Total
+		dataType: double
+		lineageTag: 1b060374-d377-4285-8d82-6cf09a54f5c0
+		summarizeBy: sum
+		sourceColumn: Hours_Total
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'OT %'
+		dataType: double
+		lineageTag: 7d2f1cf3-f36b-4e88-98e7-7324a4c8d68c
+		summarizeBy: sum
+		sourceColumn: OT %
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Headcount_Total
+		dataType: int64
+		formatString: 0
+		lineageTag: 6afc9566-0633-4661-a2b2-1aba908e2d24
+		summarizeBy: sum
+		sourceColumn: Headcount_Total
+
+		annotation SummarizationSetBy = Automatic
+
+	column Units_BED
+		dataType: int64
+		formatString: 0
+		lineageTag: 61e83def-f512-4d1d-8f62-f55924dd304d
+		summarizeBy: sum
+		sourceColumn: Units_BED
+
+		annotation SummarizationSetBy = Automatic
+
+	column Units_DOM
+		dataType: int64
+		formatString: 0
+		lineageTag: ec889e6e-176c-4001-8042-af23ae834d14
+		summarizeBy: sum
+		sourceColumn: Units_DOM
+
+		annotation SummarizationSetBy = Automatic
+
+	column Units_IMP
+		dataType: int64
+		formatString: 0
+		lineageTag: c7a925f7-eb11-4b14-a12d-c3fef3bb6423
+		summarizeBy: sum
+		sourceColumn: Units_IMP
+
+		annotation SummarizationSetBy = Automatic
+
+	column Units_IMPUP
+		dataType: int64
+		formatString: 0
+		lineageTag: fff93689-79e7-4364-831d-e97181f8744f
+		summarizeBy: sum
+		sourceColumn: Units_IMPUP
+
+		annotation SummarizationSetBy = Automatic
+
+	column Units_UPH
+		dataType: int64
+		formatString: 0
+		lineageTag: 3f856fe2-08f2-4281-b92e-8fef2b5d6601
+		summarizeBy: sum
+		sourceColumn: Units_UPH
+
+		annotation SummarizationSetBy = Automatic
+
+	column Units_RTA
+		dataType: int64
+		formatString: 0
+		lineageTag: 545c26b2-54ea-4ef6-b2b0-38faa7c20e37
+		summarizeBy: sum
+		sourceColumn: Units_RTA
+
+		annotation SummarizationSetBy = Automatic
+
+	column Units_Gross
+		dataType: int64
+		formatString: 0
+		lineageTag: 355ed80a-99fb-47dd-9fe3-65a6899b313e
+		summarizeBy: sum
+		sourceColumn: Units_Gross
+
+		annotation SummarizationSetBy = Automatic
+
+	column NonYard_PPH
+		dataType: double
+		lineageTag: 9e93d0b2-4dc4-4460-8c9a-ed4de07ccb15
+		summarizeBy: sum
+		sourceColumn: NonYard_PPH
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '% UPH Shipped/Trans'
+		dataType: double
+		lineageTag: 49744b65-7f2a-41bb-847f-dd8c4d59e723
+		summarizeBy: sum
+		sourceColumn: % UPH Shipped/Trans
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column LaborDollars_Reg_Total
+		dataType: double
+		lineageTag: 6f5615f3-be82-47bf-bd84-48cc0e3da1db
+		summarizeBy: sum
+		sourceColumn: LaborDollars_Reg_Total
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column LaborDollars_OT_Total
+		dataType: double
+		lineageTag: 2f69a8be-26cb-403f-a170-17c95047552e
+		summarizeBy: sum
+		sourceColumn: LaborDollars_OT_Total
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column LaborDollars_Total
+		dataType: double
+		lineageTag: 634910de-6b8c-4cf5-b10f-142e377f813a
+		summarizeBy: sum
+		sourceColumn: LaborDollars_Total
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column GrossAmount_NoFreight
+		dataType: double
+		lineageTag: 0f2aab4c-498f-4328-b390-31c36afffe73
+		summarizeBy: sum
+		sourceColumn: GrossAmount_NoFreight
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column GrossAmount_WithFreight
+		dataType: double
+		lineageTag: 0ac8d17a-24e7-4cff-bb64-99911061e141
+		summarizeBy: sum
+		sourceColumn: GrossAmount_WithFreight
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ASP_WithFreight
+		dataType: double
+		lineageTag: 04bd4c56-5d00-4d96-92f4-1c8b3ae34fc3
+		summarizeBy: sum
+		sourceColumn: ASP_WithFreight
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ASP_NoFreight
+		dataType: double
+		lineageTag: 82aa8ee9-4356-49e9-847d-e2f2ce48e49c
+		summarizeBy: sum
+		sourceColumn: ASP_NoFreight
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column NonYard_Pieces/HC_Ratio
+		dataType: double
+		lineageTag: cf9ea044-bb0b-43be-bddf-ec5866385587
+		summarizeBy: sum
+		sourceColumn: NonYard_Pieces/HC_Ratio
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column NonYard_CostPerPiece
+		dataType: double
+		lineageTag: bfd6490e-0fb8-4a41-8c6d-2808a4e3bda0
+		summarizeBy: sum
+		sourceColumn: NonYard_CostPerPiece
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column NonYard_SalesPerEmployee
+		dataType: double
+		lineageTag: 847af16d-6d88-4bc6-a265-87927ad3c385
+		summarizeBy: sum
+		sourceColumn: NonYard_SalesPerEmployee
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column NonYard_SalesPerLaborHour
+		dataType: double
+		lineageTag: 6584b0f4-d241-4716-92e0-944a83f41ca8
+		summarizeBy: sum
+		sourceColumn: NonYard_SalesPerLaborHour
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column NonYard_SalesPerUnit
+		dataType: double
+		lineageTag: 162b3480-62b0-4125-a60b-645ec17bb2fe
+		summarizeBy: sum
+		sourceColumn: NonYard_SalesPerUnit
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Yard_CostPerMove
+		dataType: double
+		lineageTag: 38856e01-985f-45c2-9053-c4af33242cf5
+		summarizeBy: sum
+		sourceColumn: Yard_CostPerMove
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Yard_DirMovesFrom
+		dataType: int64
+		formatString: 0
+		lineageTag: d0050a5d-08b2-4a30-800b-76d0d0dd7da1
+		summarizeBy: sum
+		sourceColumn: Yard_DirMovesFrom
+
+		annotation SummarizationSetBy = Automatic
+
+	column Yard_DirMovesTo
+		dataType: int64
+		formatString: 0
+		lineageTag: 3ed3b14f-329f-4d91-9528-67417cdd52c3
+		summarizeBy: sum
+		sourceColumn: Yard_DirMovesTo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Yard_Moves/HC_Ratio
+		dataType: double
+		lineageTag: 84d529a1-bacb-4cca-8e9d-81f137faddd0
+		summarizeBy: sum
+		sourceColumn: Yard_Moves/HC_Ratio
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Yard_MPH
+		dataType: double
+		lineageTag: 5d6c545c-0e61-42c2-976f-994926ee50e6
+		summarizeBy: sum
+		sourceColumn: Yard_MPH
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Yard_SalesPerMove
+		dataType: double
+		lineageTag: 2557a2ab-9182-41b2-8bd8-8736238d41d3
+		summarizeBy: sum
+		sourceColumn: Yard_SalesPerMove
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Yard_TotalMoves
+		dataType: int64
+		formatString: 0
+		lineageTag: d0da3527-41b5-4a32-a631-ce1c933e3e3b
+		summarizeBy: sum
+		sourceColumn: Yard_TotalMoves
+
+		annotation SummarizationSetBy = Automatic
+
+	column Yard_UndirMoves
+		dataType: int64
+		formatString: 0
+		lineageTag: 35b9ed1f-e596-44e3-ba34-a34cee82bbb5
+		summarizeBy: sum
+		sourceColumn: Yard_UndirMoves
+
+		annotation SummarizationSetBy = Automatic
+
+	column Yard_UnitsSoldPerMove
+		dataType: double
+		lineageTag: 078f536d-52c9-4cd4-ab18-09aa1549a726
+		summarizeBy: sum
+		sourceColumn: Yard_UnitsSoldPerMove
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Fct_LaborRollups = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("ashley-edw.database.windows.net", "ASHLEY_EDW", [Query="SELECT#(lf)    -- 1. 基础维度映射 (1:1 直接抓取)#(lf)    WeekEnding,#(lf)    Warehouse,#(lf)    Warehouse_Desc,#(lf)    Department,#(lf)    Department_Desc,#(lf)    Activity_Desc,#(lf)#(lf)    -- 2. 换马甲的“工时与人数” (财务名称重命名为运营名称)#(lf)    FinProll_Hours_Regular AS Hours_Reg_Total,#(lf)    FinProll_Hours_OT AS Hours_OT_Total,#(lf)#(lf)    -- 高能预警：还原真实的“系统总工时” (正式常规 + 正式加班 + 外包临时工时)#(lf)    (COALESCE(FinProll_Hours_Regular, 0) +#(lf)     COALESCE(FinProll_Hours_OT, 0) +#(lf)     COALESCE(Hours_TempLumper_In, 0)) AS Hours_Total,#(lf)#(lf)    -- 动态计算推导：加班率 (防止除以 0 报错)#(lf)    CASE#(lf)        WHEN (COALESCE(FinProll_Hours_Regular, 0) + COALESCE(FinProll_Hours_OT, 0) + COALESCE(Hours_TempLumper_In, 0)) = 0 THEN 0#(lf)        ELSE FinProll_Hours_OT / (COALESCE(FinProll_Hours_Regular, 0) + COALESCE(FinProll_Hours_OT, 0) + COALESCE(Hours_TempLumper_In, 0))#(lf)    END AS [OT %],#(lf)#(lf)    FinProll_HeadCount AS Headcount_Total,#(lf)#(lf)    -- 3. 业务量明细映射#(lf)    Units_BED,#(lf)    Units_DOM,#(lf)    Units_IMP,#(lf)    Units_IMPUP,#(lf)    Units_UPH,#(lf)    Units_RTA,#(lf)    Units_Gross,#(lf)    NonYard_PPH,#(lf)#(lf)    -- 动态计算推导：软体产品出库/跨仓转移占比#(lf)    CASE#(lf)        WHEN COALESCE(Units_Gross, 0) = 0 THEN 0#(lf)        ELSE CAST(Units_UPH AS FLOAT) / Units_Gross#(lf)    END AS [% UPH Shipped/Trans],#(lf)#(lf)    -- 4. 财务薪酬重命名#(lf)    FinProll_Pay_Regular AS LaborDollars_Reg_Total,#(lf)    FinProll_Pay_OT AS LaborDollars_OT_Total,#(lf)    FinProll_LaborDollars_Total AS LaborDollars_Total,#(lf)    GrossAmount_NoFreight,#(lf)    GrossAmount_WithFreight,#(lf)#(lf)    -- 财务开票转化映射#(lf)    NonYard_SalesPerUnit AS ASP_WithFreight,#(lf)#(lf)    -- 动态计算推导：不含运费客单价#(lf)    CASE#(lf)        WHEN COALESCE(Units_Gross, 0) = 0 THEN 0#(lf)        ELSE GrossAmount_NoFreight / Units_Gross#(lf)    END AS ASP_NoFreight,#(lf)#(lf)    -- 5. 绩效与场站指标 (1:1 抓取)#(lf)    [NonYard_Pieces/HC_Ratio],#(lf)    NonYard_CostPerPiece,#(lf)    NonYard_SalesPerEmployee,#(lf)    NonYard_SalesPerLaborHour,#(lf)    NonYard_SalesPerUnit,#(lf)    Yard_CostPerMove,#(lf)    Yard_DirMovesFrom,#(lf)    Yard_DirMovesTo,#(lf)    [Yard_Moves/HC_Ratio],#(lf)    Yard_MPH,#(lf)    Yard_SalesPerMove,#(lf)    Yard_TotalMoves,#(lf)    Yard_UndirMoves,#(lf)    Yard_UnitsSoldPerMove#(lf)#(lf)FROM#(lf)    CostAccounting.DC_LaborRollups_CalculatedData#(lf)#(lf)-- 6. 应用您刚才提到的业务筛选器#(lf)WHERE#(lf)    WeekEnding >= '2026-01-24' AND WeekEnding < '2026-03-22'#(lf)    AND Warehouse IN ('1', '15', '17', '28', '5', 'ECR')#(lf)    AND Activity_Desc IN (#(lf)        'CG - Receiving',#(lf)        'DOM Line Clearing',#(lf)        'Ecomm Shipments',#(lf)        'Outbound Xfers',#(lf)        'Shipping - Non-Ecomm',#(lf)        'UPH - Receiving',#(lf)        'UPH Line Clearing'#(lf)    );", CreateNavigationProperties=false, CommandTimeout=#duration(0, 8, 20, 0)]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"WeekEnding", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

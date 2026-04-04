@@ -1,0 +1,99 @@
+table Fct_HR_Parameters
+	lineageTag: dc55977f-6877-445d-bf20-4f4c5078777a
+
+	column 'Total ASP'
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 8407db1f-0d8f-493b-be8a-31c762ffe276
+		summarizeBy: sum
+		sourceColumn: Total ASP
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column 'Billable ASP'
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 3216b7ce-834b-4363-9e1c-b457443c3ac7
+		summarizeBy: sum
+		sourceColumn: Billable ASP
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column 'Ecommerce ASP'
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: bf704580-2295-4862-9ea7-3b31de14c1c9
+		summarizeBy: sum
+		sourceColumn: Ecommerce ASP
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column 'Ecomm 13 WK'
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 53f47cb9-25e1-451f-9986-6727d9fcc00d
+		summarizeBy: sum
+		sourceColumn: Ecomm 13 WK
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column 'Ecomm 2 WK'
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: b15e0342-155a-4427-928a-77c796618fb5
+		summarizeBy: sum
+		sourceColumn: Ecomm 2 WK
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column 'Billable 2WK'
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 4c5c92af-fe92-48bd-a667-f31b904cf0dd
+		summarizeBy: sum
+		sourceColumn: Billable 2WK
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	partition Fct_HR_Parameters = m
+		mode: import
+		source = ```
+				let
+				    // 1. 在这里输入你要抓取的指定文件名（请确保包含 .xlsx 后缀）
+				    TargetFileName = "Fct_Labor_Planning_Parameters.xlsx",
+				
+				    // 2. 连接 SharePoint 
+				    Source = SharePoint.Files("https://masterashley.sharepoint.com/sites/AsiaWarehouseOperations/", [ApiVersion = 15]),
+				    
+				    // 3. 筛选目标文件夹，并精确匹配指定的文件名
+				    TargetFile = Table.SelectRows(Source, each Text.StartsWith([Folder Path], "https://masterashley.sharepoint.com/sites/AsiaWarehouseOperations/Shared Documents/powerbiprojects/NetworkLaborPlanning/") and [Name] = TargetFileName),
+				    
+				    // 4. 读取 Excel 内容并展开指定工作表 (获取筛选结果的第一行内容的Content)
+				    ExcelData = Excel.Workbook(TargetFile{0}[Content]),
+				    
+				    // 5. 获取 Sheet1 的数据（如果你的工作表名字不是Sheet1，请在这里修改）
+				    SheetData = Table.SelectRows(ExcelData, each [Item] = "Sheet1"){0}[Data],
+				    
+				    // 6. 将第一行提升为列名
+				    #"Promoted Headers" = Table.PromoteHeaders(SheetData, [PromoteAllScalars = true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Billable 2WK", Currency.Type}, {"Ecomm 2 WK", Currency.Type}, {"Ecomm 13 WK", Currency.Type}, {"Ecommerce ASP", Currency.Type}, {"Billable ASP", Currency.Type}, {"Total ASP", Currency.Type}})
+				in
+				    #"Changed Type"
+				```
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
