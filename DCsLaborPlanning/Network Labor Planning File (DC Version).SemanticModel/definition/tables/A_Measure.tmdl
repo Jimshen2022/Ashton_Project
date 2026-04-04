@@ -1,0 +1,93 @@
+table A_Measure
+	lineageTag: 1c2375e3-9d44-4329-be72-6755ca15a622
+
+	measure Total_OB_Volume =
+			
+			// 修正：使用件数(DemandFulfillment)，绝对不能用金额(FOB)
+			SUM('Fct_DemandFulfillmentSQL'[DemandFulfillment])
+		formatString: 0
+		lineageTag: 21e792e5-1ff2-4985-90ff-d9c1d35e7fb0
+
+	measure Actual_PPH_Avg =
+			
+			CALCULATE(
+			    AVERAGE('Fct_LaborRollups'[NonYard_PPH]),
+			    REMOVEFILTERS('Dim_Calendar') // 人效基于历史客观表现，忽略未来切片器
+			)
+		lineageTag: abb3f0a6-90dd-41ac-8add-95bff48c0cb7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Current_Working_HC =
+			
+			// 1. 找到底层打卡数据最近的真实发生周（不受切片器影响）
+			VAR Max_Actual_Date = CALCULATE(MAX('Fct_LaborRollups'[WeekEnding]), REMOVEFILTERS('Dim_Calendar'))
+			
+			// 2. 强行抓取那一周的在册人数作为目前的基准人力
+			RETURN
+			CALCULATE(
+			    SUM('Fct_LaborRollups'[Headcount_Total]),
+			    REMOVEFILTERS('Dim_Calendar'), // 挣脱未来16周切片器的束缚
+			    'Dim_Calendar'[Date] = Max_Actual_Date
+			)
+		formatString: 0
+		lineageTag: c8355319-394e-4447-9bb0-83e8c218f442
+
+	measure Required_HC_Target = ```
+			
+			VAR Avg_Weekly_Volume = 
+			    AVERAGEX(
+			        VALUES('Dim_Calendar'[SaturdayDate]), 
+			        CALCULATE(SUM('Fct_DemandFulfillmentSQL'[DemandFulfillment]))
+			    )
+			
+			// 【修复】：删掉最后的 ", 0"，直接闭合括号。
+			RETURN 
+			DIVIDE(Avg_Weekly_Volume, ([Actual_PPH_Avg] * 40))
+			```
+		lineageTag: 9085042a-6898-4a60-b44d-58be81676f90
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Net_HC_Gap = ```
+			
+			// 在 Page 1 这种总览页，我们按整个仓库(wh_id)的宏观水平来算
+			VAR Current_Site = MAX('Fct_DCs'[wh_id]) 
+			
+			// 抓取您 SharePoint 表里该仓“所有部门”的平均缺勤率
+			VAR Avg_Site_Absenteeism = 
+			    CALCULATE(
+			        AVERAGE('Fct_Location_Dept_HR_Parameters'[Target_Absenteeism_Pct]),
+			        'Fct_Location_Dept_HR_Parameters'[wh_id] = Current_Site
+			    )
+			VAR Final_Absenteeism = COALESCE(Avg_Site_Absenteeism, 0.10) 
+			
+			// 全仓实际有效干活人数 = 全仓在册总人数 * (1 - 全仓平均缺勤率)
+			VAR Site_Effective_HC = [Current_Working_HC] * (1 - Final_Absenteeism)
+			
+			RETURN 
+			[Required_HC_Target] - Site_Effective_HC
+			```
+		lineageTag: 990fe10d-e367-4df0-abed-e03c08e5e568
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column1
+		dataType: string
+		lineageTag: 35dbe2c9-a2f7-4a1b-9cfa-70743a1e3f32
+		summarizeBy: none
+		sourceColumn: Column1
+
+		annotation SummarizationSetBy = Automatic
+
+	partition A_Measure = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

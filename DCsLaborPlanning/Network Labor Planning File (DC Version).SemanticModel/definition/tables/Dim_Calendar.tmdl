@@ -107,8 +107,9 @@ table Dim_Calendar
 		source =
 				let
 				  //StartDate = Date.From(DateTime.LocalNow()) - #duration(90, 0, 0, 0),  // 90 days before today
-				    StartDate = #date(2026, 1, 1),
-				    EndDate = Date.From(DateTime.LocalNow()) + #duration(0, 0, 0, 0),  // 14 days after today
+				    StartDate = #date(2024, 1, 1),
+				    EndDate = #date(2026, 12, 31),
+				    //EndDate = Date.From(DateTime.LocalNow()) + #duration(, 0, 0, 0),  // 14 days after today
 				    NumDays = Duration.Days(EndDate - StartDate) + 1,  // Calculate number of days
 				    DateList = List.Generate(
 				        () => StartDate,

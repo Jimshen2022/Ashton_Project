@@ -1,0 +1,226 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "fdd0408ab2bc24fdd425",
+  "position": {
+    "x": 259.33085501858739,
+    "y": 115.39033457249072,
+    "z": 4000,
+    "height": 328.32713754646841,
+    "width": 851.74721189591082,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fct_LaborRollups"
+                    }
+                  },
+                  "Property": "Department_Desc"
+                }
+              },
+              "queryRef": "Fct_LaborRollups.Department_Desc",
+              "nativeQueryRef": "Department_Desc",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "A_Measure"
+                    }
+                  },
+                  "Property": "Current_Working_HC"
+                }
+              },
+              "queryRef": "A_Measure.Current_Working_HC",
+              "nativeQueryRef": "Current_Working_HC"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "A_Measure"
+                    }
+                  },
+                  "Property": "Required_HC_Target"
+                }
+              },
+              "queryRef": "A_Measure.Required_HC_Target",
+              "nativeQueryRef": "Required_HC_Target"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "A_Measure"
+                    }
+                  },
+                  "Property": "Net_HC_Gap"
+                }
+              },
+              "queryRef": "A_Measure.Net_HC_Gap",
+              "nativeQueryRef": "Net_HC_Gap"
+            }
+          ]
+        }
+      }
+    },
+    "expansionStates": [
+      {
+        "roles": [
+          "Rows"
+        ],
+        "levels": [
+          {
+            "queryRefs": [
+              "Fct_LaborRollups.Department_Desc"
+            ],
+            "isCollapsed": true,
+            "isPinned": true
+          }
+        ],
+        "root": {}
+      }
+    ],
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "layout": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Tabular'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTotals": [
+        {
+          "properties": {
+            "rowSubtotals": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "perRowLevel": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "139.9479560349055D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "A_Measure.Current_Working_HC"
+          }
+        }
+      ],
+      "rowTotal": [
+        {
+          "properties": {
+            "applyToHeaders": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "16a924844685d06f258a",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "A_Measure"
+              }
+            },
+            "Property": "Current_Working_HC"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "d4f622687ab2b90261fb",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "A_Measure"
+              }
+            },
+            "Property": "Required_HC_Target"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "f30be2d0b836e9c867e6",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "A_Measure"
+              }
+            },
+            "Property": "Net_HC_Gap"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "a31b301261d7253f8764",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fct_LaborRollups"
+              }
+            },
+            "Property": "Department_Desc"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

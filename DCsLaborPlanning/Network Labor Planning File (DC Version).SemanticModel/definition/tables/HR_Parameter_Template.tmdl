@@ -1,0 +1,64 @@
+table HR_Parameter_Template
+	isHidden
+	lineageTag: a48a236f-c7fe-404e-b58b-1123e3e3bb20
+
+	column wh_id
+		isHidden
+		lineageTag: 832cfd03-1b19-4f92-bbe4-7da5808dabc5
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Fct_DCs[wh_id]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Site
+		isHidden
+		lineageTag: e7b68a20-d668-4b04-a35b-a32c5715dec0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Fct_DCs[Site]
+
+		annotation SummarizationSetBy = Automatic
+
+	column wh_name
+		isHidden
+		lineageTag: 0cbd4d21-cfe6-4e24-84ca-0ccc68cc5779
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Fct_DCs[wh_name]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Department
+		isHidden
+		lineageTag: a281bd6f-9a25-42bc-8572-143d409bce89
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Fct_LaborRollups[Department]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Department_Desc
+		isHidden
+		lineageTag: 425e4cb9-7fd9-4fb6-bb58-fe3908990a0b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Fct_LaborRollups[Department_Desc]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition HR_Parameter_Template = calculated
+		mode: import
+		source =
+				
+				SUMMARIZE(
+				    'Fct_LaborRollups',
+				    'Fct_DCs'[wh_id],
+				    'Fct_DCs'[Site],
+				    'Fct_DCs'[wh_name],
+				    'Fct_LaborRollups'[Department],
+				    'Fct_LaborRollups'[Department_Desc]
+				)
+
+	annotation PBI_Id = 2464102e03a34205bed18e4a540f7949
+

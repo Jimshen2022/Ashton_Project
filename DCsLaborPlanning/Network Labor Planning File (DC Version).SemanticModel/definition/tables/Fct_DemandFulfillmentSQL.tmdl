@@ -16,11 +16,6 @@ table Fct_DemandFulfillmentSQL
 		summarizeBy: none
 		sourceColumn: WeekEnding
 
-		variation Variation
-			isDefault
-			relationship: 215a3642-9d93-4142-9a8e-ae1d005d47fa
-			defaultHierarchy: LocalDateTable_eba9ab1c-b370-456a-a598-e1eaee29f4d7.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date

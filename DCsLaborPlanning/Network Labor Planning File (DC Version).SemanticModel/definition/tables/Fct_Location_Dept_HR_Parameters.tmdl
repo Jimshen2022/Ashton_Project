@@ -1,0 +1,93 @@
+table Fct_Location_Dept_HR_Parameters
+	lineageTag: 486c98b5-0e6d-4194-b6f7-a9b1d95f2884
+
+	column wh_id
+		dataType: string
+		lineageTag: c7b3e4a6-429c-4695-b497-d124c4786f7b
+		summarizeBy: none
+		sourceColumn: wh_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Site
+		dataType: string
+		lineageTag: ec928a5c-0c3f-42d6-9e2f-5271561ad158
+		summarizeBy: none
+		sourceColumn: Site
+
+		annotation SummarizationSetBy = Automatic
+
+	column wh_name
+		dataType: string
+		lineageTag: 6fbdbca9-1df8-4fbf-b59d-89bab8c52b1b
+		summarizeBy: none
+		sourceColumn: wh_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Department
+		dataType: string
+		lineageTag: 1b6ca3fe-9983-4c0c-952c-889c22c72dbc
+		summarizeBy: none
+		sourceColumn: Department
+
+		annotation SummarizationSetBy = Automatic
+
+	column Department_Desc
+		dataType: string
+		lineageTag: d10952ba-db24-48fd-8623-2d19e717ec3d
+		summarizeBy: none
+		sourceColumn: Department_Desc
+
+		annotation SummarizationSetBy = Automatic
+
+	column Target_Absenteeism_Pct
+		dataType: double
+		lineageTag: f2f958ee-0782-461f-b7e6-5ccfe838664e
+		summarizeBy: sum
+		sourceColumn: Target_Absenteeism_Pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Target_Turnover_Pct
+		dataType: string
+		lineageTag: 09e026b3-07d6-4809-9613-ba87319a60d7
+		summarizeBy: none
+		sourceColumn: Target_Turnover_Pct
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fct_Location_Dept_HR_Parameters = m
+		mode: import
+		source = ```
+				let
+				    // 1. 在这里输入你要抓取的指定文件名（请确保包含 .xlsx 后缀）
+				    TargetFileName = "Fct_Location_Dept_HR_Parameters.xlsx",
+				
+				    // 2. 连接 SharePoint 
+				    Source = SharePoint.Files("https://masterashley.sharepoint.com/sites/AsiaWarehouseOperations/", [ApiVersion = 15]),
+				    
+				    // 3. 筛选目标文件夹，并精确匹配指定的文件名
+				    TargetFile = Table.SelectRows(Source, each Text.StartsWith([Folder Path], "https://masterashley.sharepoint.com/sites/AsiaWarehouseOperations/Shared Documents/powerbiprojects/NetworkLaborPlanning/") and [Name] = TargetFileName),
+				    
+				    // 4. 读取 Excel 内容并展开指定工作表 (获取筛选结果的第一行内容的Content)
+				    ExcelData = Excel.Workbook(TargetFile{0}[Content]),
+				    
+				    // 5. 获取 Sheet1 的数据（如果你的工作表名字不是Sheet1，请在这里修改）
+				    SheetData = Table.SelectRows(ExcelData, each [Item] = "Sheet1"){0}[Data],
+				    
+				    // 6. 将第一行提升为列名
+				    #"Promoted Headers" = Table.PromoteHeaders(SheetData, [PromoteAllScalars = true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"wh_id", type text}, {"Target_Absenteeism_Pct", type number}})
+				in
+				    #"Changed Type"
+				```
+
+	changedProperty = Name
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

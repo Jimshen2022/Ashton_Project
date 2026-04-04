@@ -37,6 +37,17 @@
           "type": "BaseTheme"
         }
       ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "Gemini_Generated_Image_7a2ez5738650876456200933.png",
+          "path": "Gemini_Generated_Image_7a2ez5738650876456200933.png",
+          "type": "Image"
+        }
+      ]
     }
   ],
   "settings": {

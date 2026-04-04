@@ -8,11 +8,6 @@ table Fct_LaborRollups
 		summarizeBy: none
 		sourceColumn: WeekEnding
 
-		variation Variation
-			isDefault
-			relationship: bf680588-7512-448d-bd31-9876e73fadb1
-			defaultHierarchy: LocalDateTable_ef756742-f12c-49f2-a995-7a5d3511ffb1.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date

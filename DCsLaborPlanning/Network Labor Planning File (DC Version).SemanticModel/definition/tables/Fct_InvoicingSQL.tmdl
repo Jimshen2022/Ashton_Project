@@ -10,8 +10,8 @@ table Fct_InvoicingSQL
 
 		variation Variation
 			isDefault
-			relationship: 4ddb0220-9d7d-4c2c-b82d-e26532a915e0
-			defaultHierarchy: LocalDateTable_37bc6076-4fdd-41b8-928b-98e167024b61.'Date Hierarchy'
+			relationship: b7b46658-d495-4588-8a80-83ae279d09d2
+			defaultHierarchy: LocalDateTable_bd5855f9-a538-408f-b04b-10bf6577f817.'Date Hierarchy'
 
 		annotation SummarizationSetBy = Automatic
 
@@ -21,11 +21,6 @@ table Fct_InvoicingSQL
 		lineageTag: 75c1f102-b70e-48cd-a5b3-d09bd7243e16
 		summarizeBy: none
 		sourceColumn: Fiscal_WeekEnding
-
-		variation Variation
-			isDefault
-			relationship: 86ea69bf-6b14-4970-a02a-96b78c183733
-			defaultHierarchy: LocalDateTable_fb49fa0d-e475-4ab0-8875-6a59e1fc6b6e.'Date Hierarchy'
 
 		annotation SummarizationSetBy = Automatic
 

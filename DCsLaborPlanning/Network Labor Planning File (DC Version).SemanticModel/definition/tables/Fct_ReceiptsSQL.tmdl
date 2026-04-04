@@ -16,11 +16,6 @@ table Fct_ReceiptsSQL
 		summarizeBy: none
 		sourceColumn: WeekEnding
 
-		variation Variation
-			isDefault
-			relationship: a9672968-f576-4ecc-a003-efd71e48376e
-			defaultHierarchy: LocalDateTable_f0fd956b-f2c5-4355-b708-a7e1158f9fc1.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date

@@ -1,10 +1,9 @@
 table _Measures_LaborPlanning
 	lineageTag: 7a8b9c0d-1e2f-3a4b-5c6d-7e8f9a0b1c2d
 
-	measure 'Dept HC (Base)' =
-			SUM('Fct_LaborRollups'[Headcount_Total])
+	measure 'Dept HC (Base)' = SUM('Fct_LaborRollups'[Headcount_Total])
 		formatString: #,##0
-		displayFolder: "1. Headcount"
+		displayFolder: 1. Headcount
 		lineageTag: 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
 
 	measure 'Forecasted Terminations' =
@@ -12,53 +11,50 @@ table _Measures_LaborPlanning
 			// AVERAGEX(DATESINPERIOD('Dim_Calendar'[Date], MAX('Dim_Calendar'[Date]), -13, WEEK), [Actual Terms])
 			0
 		formatString: #,##0
-		displayFolder: "1. Headcount"
+		displayFolder: 1. Headcount
 		lineageTag: 2b3c4d5e-6f7a-8b9c-0d1e-2f3a4b5c6d7e
 
 	measure 'Requested Hires' =
 			// TODO: Replace with actual HR Input column
 			0
 		formatString: #,##0
-		displayFolder: "1. Headcount"
+		displayFolder: 1. Headcount
 		lineageTag: 3c4d5e6f-7a8b-9c0d-1e2f-3a4b5c6d7e8f
 
 	measure WC_LOA =
 			// TODO: Replace with actual HR Input column (Workers Comp / Leave of Absence)
 			0
 		formatString: #,##0
-		displayFolder: "1. Headcount"
+		displayFolder: 1. Headcount
 		lineageTag: 4d5e6f7a-8b9c-0d1e-2f3a-4b5c6d7e8f9a
 
 	measure 'Working HC' =
 			// Formula: (Dept HC - (Terminations+ WC/LOA)) + Hires
 			['_Measures_LaborPlanning'[Dept HC (Base)]] - (['_Measures_LaborPlanning'[Forecasted Terminations]] + ['_Measures_LaborPlanning'[WC_LOA]]) + ['_Measures_LaborPlanning'[Requested Hires]]
 		formatString: #,##0
-		displayFolder: "1. Headcount"
+		displayFolder: 1. Headcount
 		lineageTag: 5e6f7a8b-9c0d-1e2f-3a4b-5c6d7e8f9a0b
 
 	measure 'HC Need' =
 			// Target Capacity - Working HC
 			0 - ['_Measures_LaborPlanning'[Working HC]]
 		formatString: #,##0
-		displayFolder: "1. Headcount"
+		displayFolder: 1. Headcount
 		lineageTag: 6f7a8b9c-0d1e-2f3a-4b5c-6d7e8f9a0b1c
 
-	measure 'Overall OT %' =
-			DIVIDE(SUM('Fct_LaborRollups'[Hours_OT_Total]), SUM('Fct_LaborRollups'[Hours_Total]), 0)
+	measure 'Overall OT %' = DIVIDE(SUM('Fct_LaborRollups'[Hours_OT_Total]), SUM('Fct_LaborRollups'[Hours_Total]), 0)
 		formatString: 0.00%
-		displayFolder: "2. Performance"
+		displayFolder: 2. Performance
 		lineageTag: 7a8b9c0d-1e2f-3a4b-5c6d-7e8f9a0b1c2d
 
-	measure 'Overall PPH' =
-			DIVIDE(SUM('Fct_LaborRollups'[Units_Gross]), SUM('Fct_LaborRollups'[Hours_Total]), 0)
+	measure 'Overall PPH' = DIVIDE(SUM('Fct_LaborRollups'[Units_Gross]), SUM('Fct_LaborRollups'[Hours_Total]), 0)
 		formatString: #,##0.00
-		displayFolder: "2. Performance"
+		displayFolder: 2. Performance
 		lineageTag: 8b9c0d1e-2f3a-4b5c-6d7e-8f9a0b1c2d3e
 
-	measure 'Cost Per Piece' =
-			DIVIDE(SUM('Fct_LaborRollups'[LaborDollars_Total]), SUM('Fct_LaborRollups'[Units_Gross]), 0)
+	measure 'Cost Per Piece' = DIVIDE(SUM('Fct_LaborRollups'[LaborDollars_Total]), SUM('Fct_LaborRollups'[Units_Gross]), 0)
 		formatString: \$#,##0.00;(\$#,##0.00);\$#,##0.00
-		displayFolder: "3. Financials"
+		displayFolder: 3. Financials
 		lineageTag: 9c0d1e2f-3a4b-5c6d-7e8f-9a0b1c2d3e4f
 
 	partition _Measures_LaborPlanning = m
@@ -72,3 +68,4 @@ table _Measures_LaborPlanning
 				    #"Removed Columns"
 
 	annotation PBI_ResultType = Table
+
