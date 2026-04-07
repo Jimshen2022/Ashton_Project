@@ -12,6 +12,8 @@ annotation PBI_ProTooling = ["DevMode"]
 
 annotation PBI_QueryOrder = ["Fct_DemandFulfillmentSQL","Fct_LaborRollups","Fct_ReceiptsSQL","Fct_InvoicingSQL","Dim_Calendar","Fct_DCs","_Measures_LaborPlanning","Fct_HR_Parameters","A_Measure","Fct_Location_Dept_HR_Parameters"]
 
+annotation __TEdtr = 1
+
 ref table Fct_DemandFulfillmentSQL
 ref table DateTableTemplate_bbc654e2-9027-4a0b-9f31-d5c90885cfa6
 ref table Fct_LaborRollups
@@ -23,7 +25,6 @@ ref table LocalDateTable_b1fe066d-a8da-404f-88d2-ca70c0c002c0
 ref table Fct_DCs
 ref table Fct_HR_Parameters
 ref table _Measures_LaborPlanning
-ref table A_Measure
 ref table LocalDateTable_bd5855f9-a538-408f-b04b-10bf6577f817
 ref table HR_Parameter_Template
 ref table Fct_Location_Dept_HR_Parameters

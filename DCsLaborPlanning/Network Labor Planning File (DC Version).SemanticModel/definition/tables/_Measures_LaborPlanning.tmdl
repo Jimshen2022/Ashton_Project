@@ -1,61 +1,109 @@
 table _Measures_LaborPlanning
 	lineageTag: 7a8b9c0d-1e2f-3a4b-5c6d-7e8f9a0b1c2d
 
-	measure 'Dept HC (Base)' = SUM('Fct_LaborRollups'[Headcount_Total])
-		formatString: #,##0
-		displayFolder: 1. Headcount
-		lineageTag: 1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d
+	measure Actual_PPH_Avg =
+			CALCULATE(
+			            AVERAGE('Fct_LaborRollups'[NonYard_PPH]),
+			            REMOVEFILTERS('Dim_Calendar')
+			        )
+		formatString: 0.00
+		displayFolder: 01. Core Base
+		lineageTag: d21dc543-4644-4853-a0f9-8e7d30bd420f
 
-	measure 'Forecasted Terminations' =
-			// TODO: Replace with 13-week rolling avg or HR Input
-			// AVERAGEX(DATESINPERIOD('Dim_Calendar'[Date], MAX('Dim_Calendar'[Date]), -13, WEEK), [Actual Terms])
-			0
-		formatString: #,##0
-		displayFolder: 1. Headcount
-		lineageTag: 2b3c4d5e-6f7a-8b9c-0d1e-2f3a4b5c6d7e
+	measure Current_Working_HC =
+			VAR Max_Actual_Date = CALCULATE(MAX('Fct_LaborRollups'[WeekEnding]), REMOVEFILTERS('Dim_Calendar'))
+			        RETURN
+			        CALCULATE(
+			            SUM('Fct_LaborRollups'[Headcount_Total]),
+			            REMOVEFILTERS('Dim_Calendar'),
+			            'Dim_Calendar'[Date] = Max_Actual_Date
+			        )
+		formatString: #,0
+		displayFolder: 01. Core Base
+		lineageTag: 338d6768-b4c1-48d8-895f-c8e425ba36f8
 
-	measure 'Requested Hires' =
-			// TODO: Replace with actual HR Input column
-			0
-		formatString: #,##0
-		displayFolder: 1. Headcount
-		lineageTag: 3c4d5e6f-7a8b-9c0d-1e2f-3a4b5c6d7e8f
+	measure Total_OB_Volume = ```
+			CALCULATE(
+			            SUM('OB Delta Split'[Bill-ECOMM]) + 
+			            SUM('OB Delta Split'[Ecomm])
+			        )
+			```
+		formatString: #,0
+		displayFolder: 01. Core Base
+		lineageTag: 4a69f57a-565c-4d70-b1a6-94ac67b3cf9c
 
-	measure WC_LOA =
-			// TODO: Replace with actual HR Input column (Workers Comp / Leave of Absence)
-			0
-		formatString: #,##0
-		displayFolder: 1. Headcount
-		lineageTag: 4d5e6f7a-8b9c-0d1e-2f3a-4b5c6d7e8f9a
+	measure Total_IB_Volume = ```
+			CALCULATE(
+			            SUM('Fct_ReceiptsSQL'[PurchaseOrderPcs]) + 
+			            SUM('Fct_ReceiptsSQL'[TransferInPcs])
+			        )
+			```
+		formatString: #,0
+		displayFolder: 01. Core Base
+		lineageTag: 7ef334d6-ee20-408a-9cc2-f11ab687449b
 
-	measure 'Working HC' =
-			// Formula: (Dept HC - (Terminations+ WC/LOA)) + Hires
-			['_Measures_LaborPlanning'[Dept HC (Base)]] - (['_Measures_LaborPlanning'[Forecasted Terminations]] + ['_Measures_LaborPlanning'[WC_LOA]]) + ['_Measures_LaborPlanning'[Requested Hires]]
-		formatString: #,##0
-		displayFolder: 1. Headcount
-		lineageTag: 5e6f7a8b-9c0d-1e2f-3a4b-5c6d7e8f9a0b
+	measure Required_HC_Target = ```
+			SUMX(
+			            VALUES('Fct_LaborRollups'[Department_Desc]),
+			            
+			            VAR Current_Dept = MAX('Fct_LaborRollups'[Department_Desc])
+			            
+			            VAR Avg_Weekly_OB_Volume = AVERAGEX(VALUES('Dim_Calendar'[SaturdayDate]), [Total_OB_Volume])
+			            VAR Avg_Weekly_IB_Volume = AVERAGEX(VALUES('Dim_Calendar'[SaturdayDate]), [Total_IB_Volume])
+			            VAR Dept_PPH = [Actual_PPH_Avg]
+			            
+			            VAR Target_HC = 
+			                SWITCH(TRUE(),
+			                    Current_Dept = "Shipping" || Current_Dept = "Ecomm", DIVIDE(Avg_Weekly_OB_Volume, (Dept_PPH * 40)),
+			                    Current_Dept = "Receiving" || Current_Dept = "Inbound", DIVIDE(Avg_Weekly_IB_Volume, (Dept_PPH * 40)),
+			                    BLANK()
+			                )
+			            RETURN Target_HC
+			        )
+			```
+		formatString: #,0.0
+		displayFolder: 02. Core Engines
+		lineageTag: 78e673dc-2bc4-45ef-9759-7369694e67dd
 
-	measure 'HC Need' =
-			// Target Capacity - Working HC
-			0 - ['_Measures_LaborPlanning'[Working HC]]
-		formatString: #,##0
-		displayFolder: 1. Headcount
-		lineageTag: 6f7a8b9c-0d1e-2f3a-4b5c-6d7e8f9a0b1c
+	measure Net_HC_Gap = ```
+			VAR Current_Site = MAX('Fct_DCs'[wh_id]) 
+			        VAR Avg_Site_Absenteeism = CALCULATE(
+			            AVERAGE('Fct_Location_Dept_HR_Parameters'[Target_Absenteeism_Pct]),
+			            'Fct_Location_Dept_HR_Parameters'[wh_id] = Current_Site
+			        )
+			        VAR Final_Absenteeism = COALESCE(Avg_Site_Absenteeism, 0.10) 
+			        VAR Site_Effective_HC = [Current_Working_HC] * (1 - Final_Absenteeism)
+			        
+			        RETURN [Required_HC_Target] - Site_Effective_HC
+			```
+		formatString: #,0.0
+		displayFolder: 02. Core Engines
+		lineageTag: 325be840-779b-467b-b779-a76f7960857f
 
-	measure 'Overall OT %' = DIVIDE(SUM('Fct_LaborRollups'[Hours_OT_Total]), SUM('Fct_LaborRollups'[Hours_Total]), 0)
-		formatString: 0.00%
-		displayFolder: 2. Performance
-		lineageTag: 7a8b9c0d-1e2f-3a4b-5c6d-7e8f9a0b1c2d
+	measure Capacity_40_Hrs = [Current_Working_HC] * [Actual_PPH_Avg] * 40
+		formatString: #,0
+		displayFolder: 03. DC Quickviews
+		lineageTag: d2143119-549b-4593-a97b-9de2bf2098fb
 
-	measure 'Overall PPH' = DIVIDE(SUM('Fct_LaborRollups'[Units_Gross]), SUM('Fct_LaborRollups'[Hours_Total]), 0)
-		formatString: #,##0.00
-		displayFolder: 2. Performance
-		lineageTag: 8b9c0d1e-2f3a-4b5c-6d7e-8f9a0b1c2d3e
+	measure Capacity_45_Hrs = [Current_Working_HC] * [Actual_PPH_Avg] * 45
+		formatString: #,0
+		displayFolder: 03. DC Quickviews
+		lineageTag: 82230278-9535-409c-93ff-20c7de035c19
 
-	measure 'Cost Per Piece' = DIVIDE(SUM('Fct_LaborRollups'[LaborDollars_Total]), SUM('Fct_LaborRollups'[Units_Gross]), 0)
-		formatString: \$#,##0.00;(\$#,##0.00);\$#,##0.00
-		displayFolder: 3. Financials
-		lineageTag: 9c0d1e2f-3a4b-5c6d-7e8f-9a0b1c2d3e4f
+	measure Capacity_50_Hrs = [Current_Working_HC] * [Actual_PPH_Avg] * 50
+		formatString: #,0
+		displayFolder: 03. DC Quickviews
+		lineageTag: 85f395b6-5851-4b8f-a9dd-616e560b5f0e
+
+	measure Capacity_55_Hrs = [Current_Working_HC] * [Actual_PPH_Avg] * 55
+		formatString: #,0
+		displayFolder: 03. DC Quickviews
+		lineageTag: 2729d0df-d252-4105-a26f-4675054629ea
+
+	measure Ratio_OB_vs_IB = DIVIDE([Total_OB_Volume], [Total_IB_Volume], BLANK())
+		formatString: 0.0%
+		displayFolder: 03. DC Quickviews
+		lineageTag: 970ddeab-d442-4fb5-8c09-61fefbc7caf1
 
 	partition _Measures_LaborPlanning = m
 		mode: import
