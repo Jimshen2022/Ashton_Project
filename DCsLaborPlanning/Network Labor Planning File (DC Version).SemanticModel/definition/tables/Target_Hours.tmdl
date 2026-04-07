@@ -1,0 +1,12 @@
+table Target_Hours
+	lineageTag: 181f25ed-526a-4107-ba72-6e68c7a9c29d
+
+	column Target_Hours
+		lineageTag: 65710cee-854e-46b8-912e-c55e47f10135
+		isNameInferred
+		sourceColumn: [Target_Hours]
+
+	partition Target_Hours = calculated
+		mode: import
+		source = SELECTCOLUMNS(GENERATESERIES(40, 55, 5), "Target_Hours", [Value])
+

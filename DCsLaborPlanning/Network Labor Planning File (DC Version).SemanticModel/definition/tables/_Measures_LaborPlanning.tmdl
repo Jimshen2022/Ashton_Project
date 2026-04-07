@@ -74,6 +74,38 @@ table _Measures_LaborPlanning
 		displayFolder: 4. Audit & Alerts
 		lineageTag: 30058685-9c7c-4773-8457-1b49866f8ee7
 
+	measure Dynamic_Required_HC = ```
+			
+			SUMX(
+			    VALUES('Fct_LaborRollups'[Department_Desc]),
+			    
+			    VAR Current_Dept = MAX('Fct_LaborRollups'[Department_Desc])
+			    VAR Ecomm_Pct = [Mix_Ecomm_Pct]
+			    VAR Billable_Pct = 1 - Ecomm_Pct
+			    
+			    // 1. 动态单量
+			    VAR Dept_Volume = 
+			        SWITCH(TRUE(),
+			            Current_Dept = "Ecomm", [Total_OB_Volume] * (1 + SELECTEDVALUE('FCST_Adj_Pct'[FCST_Adj_Pct], 0)) * Ecomm_Pct,
+			            Current_Dept = "Shipping", [Total_OB_Volume] * (1 + SELECTEDVALUE('FCST_Adj_Pct'[FCST_Adj_Pct], 0)) * Billable_Pct,
+			            // 👇 这里修复了！必须写两遍 Current_Dept = 
+			            Current_Dept = "Receiving" || Current_Dept = "Inbound", [Total_IB_Volume],
+			            BLANK()
+			        )
+			    
+			    // 2. 获取效率，如果底层数据是空或0，强制给个保底值(例如 15) 防止报错
+			    VAR Raw_PPH = [Actual_PPH_Avg]
+			    VAR Dept_PPH = IF(ISBLANK(Raw_PPH) || Raw_PPH = 0, 15, Raw_PPH) 
+			    
+			    // 3. 🎯 核心接线：强制抓取切片器！如果没选，默认 40
+			    VAR Target_Hrs = SELECTEDVALUE('Target_Hours'[Target_Hours], 40) 
+			    
+			    // 安全除法：如果还是除以 0，返回空白而不是 Infinity
+			    RETURN DIVIDE(Dept_Volume, (Dept_PPH * Target_Hrs), BLANK())
+			)
+			```
+		lineageTag: 9bd5f598-0f9d-4525-8e63-a77674be5584
+
 	column Column1
 		dataType: string
 		isHidden

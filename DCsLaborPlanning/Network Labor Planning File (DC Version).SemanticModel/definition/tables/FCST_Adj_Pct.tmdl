@@ -1,0 +1,13 @@
+table FCST_Adj_Pct
+	lineageTag: bfb81b39-dcba-4e2a-9e1f-00a531407c88
+
+	column FCST_Adj_Pct
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 30f81a5b-a18e-473d-85ce-1c897f36639b
+		isNameInferred
+		sourceColumn: [FCST_Adj_Pct]
+
+	partition FCST_Adj_Pct = calculated
+		mode: import
+		source = SELECTCOLUMNS(GENERATESERIES(-0.20, 0.20, 0.05), "FCST_Adj_Pct", [Value])
+
