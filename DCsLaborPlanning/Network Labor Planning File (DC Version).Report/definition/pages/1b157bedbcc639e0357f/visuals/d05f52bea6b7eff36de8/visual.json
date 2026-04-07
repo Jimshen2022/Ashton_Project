@@ -20,7 +20,7 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Fct_DCs"
+                      "Entity": "Dim_DCs"
                     }
                   },
                   "Property": "Site"
@@ -64,7 +64,7 @@
                 "From": [
                   {
                     "Name": "f",
-                    "Entity": "Fct_DCs",
+                    "Entity": "Dim_DCs",
                     "Type": 0
                   }
                 ],
@@ -114,7 +114,7 @@
           "Column": {
             "Expression": {
               "SourceRef": {
-                "Entity": "Fct_DCs"
+                "Entity": "Dim_DCs"
               }
             },
             "Property": "Site"

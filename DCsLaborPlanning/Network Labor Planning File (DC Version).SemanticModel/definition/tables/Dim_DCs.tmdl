@@ -1,4 +1,4 @@
-table Fct_DCs
+table Dim_DCs
 	lineageTag: 58844516-52bd-479d-83b4-c574c906b710
 
 	column wh_id
@@ -25,7 +25,7 @@ table Fct_DCs
 
 		annotation SummarizationSetBy = Automatic
 
-	partition Fct_DCs = m
+	partition Dim_DCs = m
 		mode: import
 		source = ```
 				let

@@ -10,15 +10,15 @@ relationship 85a81b42-26f1-42ed-a4a4-e0c7f5a31b98
 
 relationship 38e9b54a-9739-cfae-e7c8-740ae8d9cca6
 	fromColumn: Fct_LaborRollups.Warehouse
-	toColumn: Fct_DCs.wh_id
+	toColumn: Dim_DCs.wh_id
 
 relationship f4bb169d-3995-ac1d-c24b-f60178b58aad
 	fromColumn: Fct_DemandFulfillmentSQL.Warehouse
-	toColumn: Fct_DCs.wh_id
+	toColumn: Dim_DCs.wh_id
 
 relationship 951f02ec-3c56-52e6-affe-ff0e427409b1
 	fromColumn: Fct_ReceiptsSQL.Warehouse
-	toColumn: Fct_DCs.wh_id
+	toColumn: Dim_DCs.wh_id
 
 relationship a0a7d82a-1f64-999c-1bca-afca23c3e0f2
 	fromColumn: Fct_LaborRollups.WeekEnding
@@ -34,7 +34,7 @@ relationship 1fea3e14-5e53-ceb3-e728-cfe86735e0b3
 
 relationship 056833a7-7a47-5c9c-0402-32e636f3766e
 	fromColumn: Fct_InvoicingSQL.Warehouse
-	toColumn: Fct_DCs.wh_id
+	toColumn: Dim_DCs.wh_id
 
 relationship b7b46658-d495-4588-8a80-83ae279d09d2
 	joinOnDateBehavior: datePartOnly
@@ -44,4 +44,8 @@ relationship b7b46658-d495-4588-8a80-83ae279d09d2
 relationship edf48632-d16c-aa52-fcbc-eed5e4b9189b
 	fromColumn: Fct_InvoicingSQL.Fiscal_WeekEnding
 	toColumn: Dim_Calendar.Date
+
+relationship b15b0da1-77b3-9e8b-b467-a86c5f262925
+	fromColumn: Fct_LaborRollups.Activity_Desc
+	toColumn: Dim_Department.Raw_Department_Desc
 

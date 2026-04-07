@@ -7,7 +7,7 @@ table HR_Parameter_Template
 		lineageTag: 832cfd03-1b19-4f92-bbe4-7da5808dabc5
 		summarizeBy: none
 		isNameInferred
-		sourceColumn: Fct_DCs[wh_id]
+		sourceColumn: Dim_DCs[wh_id]
 
 		annotation SummarizationSetBy = Automatic
 
@@ -16,7 +16,7 @@ table HR_Parameter_Template
 		lineageTag: e7b68a20-d668-4b04-a35b-a32c5715dec0
 		summarizeBy: none
 		isNameInferred
-		sourceColumn: Fct_DCs[Site]
+		sourceColumn: Dim_DCs[Site]
 
 		annotation SummarizationSetBy = Automatic
 
@@ -25,7 +25,7 @@ table HR_Parameter_Template
 		lineageTag: 0cbd4d21-cfe6-4e24-84ca-0ccc68cc5779
 		summarizeBy: none
 		isNameInferred
-		sourceColumn: Fct_DCs[wh_name]
+		sourceColumn: Dim_DCs[wh_name]
 
 		annotation SummarizationSetBy = Automatic
 
@@ -53,9 +53,9 @@ table HR_Parameter_Template
 				
 				SUMMARIZE(
 				    'Fct_LaborRollups',
-				    'Fct_DCs'[wh_id],
-				    'Fct_DCs'[Site],
-				    'Fct_DCs'[wh_name],
+				    'Dim_DCs'[wh_id],
+				    'Dim_DCs'[Site],
+				    'Dim_DCs'[wh_name],
 				    'Fct_LaborRollups'[Department],
 				    'Fct_LaborRollups'[Department_Desc]
 				)

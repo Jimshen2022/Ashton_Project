@@ -4,19 +4,19 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 922,
-        "y": 16
+        "x": 0,
+        "y": 0
       },
       "nodes": [
         {
           "location": {
-            "x": 365,
-            "y": 550
+            "x": 276,
+            "y": 382
           },
           "nodeIndex": "Fct_DemandFulfillmentSQL",
           "nodeLineageTag": "89cc64bd-9f7e-487e-9016-f53943ef49ec",
           "size": {
-            "height": 200,
+            "height": 307,
             "width": 234
           },
           "zIndex": 1
@@ -36,8 +36,8 @@
         },
         {
           "location": {
-            "x": 216,
-            "y": 13
+            "x": 0,
+            "y": 0
           },
           "nodeIndex": "Dim_Calendar",
           "nodeLineageTag": "474055b3-2dd7-44ec-9cc1-05746112c4c6",
@@ -46,19 +46,6 @@
             "width": 234
           },
           "zIndex": 2
-        },
-        {
-          "location": {
-            "x": 491,
-            "y": 238
-          },
-          "nodeIndex": "Fct_DCs",
-          "nodeLineageTag": "58844516-52bd-479d-83b4-c574c906b710",
-          "size": {
-            "height": 264,
-            "width": 234
-          },
-          "zIndex": 9
         },
         {
           "location": {
@@ -75,13 +62,13 @@
         },
         {
           "location": {
-            "x": 709,
-            "y": 0
+            "x": 789,
+            "y": 382
           },
           "nodeIndex": "Fct_InvoicingSQL",
           "nodeLineageTag": "99f8bf2d-6c85-49fc-a0a1-4e01e0d56603",
           "size": {
-            "height": 226,
+            "height": 305,
             "width": 234
           },
           "zIndex": 4
@@ -89,7 +76,7 @@
         {
           "location": {
             "x": 0,
-            "y": 370
+            "y": 382
           },
           "nodeIndex": "Fct_LaborRollups",
           "nodeLineageTag": "a46fc679-4896-43fb-ab98-a6c5c3004229",
@@ -101,8 +88,8 @@
         },
         {
           "location": {
-            "x": 852,
-            "y": 382
+            "x": 531,
+            "y": 386
           },
           "nodeIndex": "Fct_ReceiptsSQL",
           "nodeLineageTag": "cbc40e80-b628-40cb-83cb-41d435d2b393",
@@ -111,19 +98,6 @@
             "width": 234
           },
           "zIndex": 6
-        },
-        {
-          "location": {
-            "x": 2002,
-            "y": 16
-          },
-          "nodeIndex": "A_Measure",
-          "nodeLineageTag": "1c2375e3-9d44-4329-be72-6755ca15a622",
-          "size": {
-            "height": 308,
-            "width": 234
-          },
-          "zIndex": 7
         },
         {
           "location": {
@@ -139,14 +113,39 @@
         },
         {
           "location": {
-            "x": 1139,
-            "y": 17
+            "x": 1130,
+            "y": 0
           },
           "nodeIndex": "Fct_Location_Dept_HR_Parameters",
           "nodeLineageTag": "486c98b5-0e6d-4194-b6f7-a9b1d95f2884",
           "size": {
-            "height": 248,
+            "height": 304,
             "width": 361
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 534,
+            "y": 8
+          },
+          "nodeIndex": "Dim_Department",
+          "nodeLineageTag": "a666c323-8bf3-4d29-863a-b93b566c081a",
+          "size": {
+            "height": 249,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 274,
+            "y": 6
+          },
+          "nodeIndex": "Dim_DCs",
+          "size": {
+            "height": 264,
+            "width": 234
           },
           "zIndex": 0
         }

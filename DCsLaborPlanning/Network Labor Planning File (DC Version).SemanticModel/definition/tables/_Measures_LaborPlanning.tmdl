@@ -66,7 +66,7 @@ table _Measures_LaborPlanning
 		lineageTag: 78e673dc-2bc4-45ef-9759-7369694e67dd
 
 	measure Net_HC_Gap = ```
-			VAR Current_Site = MAX('Fct_DCs'[wh_id]) 
+			VAR Current_Site = MAX('Dim_DCs'[wh_id]) 
 			        VAR Avg_Site_Absenteeism = CALCULATE(
 			            AVERAGE('Fct_Location_Dept_HR_Parameters'[Target_Absenteeism_Pct]),
 			            'Fct_Location_Dept_HR_Parameters'[wh_id] = Current_Site

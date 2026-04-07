@@ -20,7 +20,7 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Fct_DCs"
+                      "Entity": "Dim_DCs"
                     }
                   },
                   "Property": "Site"
@@ -35,7 +35,7 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Fct_DCs"
+                      "Entity": "Dim_DCs"
                     }
                   },
                   "Property": "wh_name"
@@ -50,7 +50,7 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Fct_DCs"
+                      "Entity": "Dim_DCs"
                     }
                   },
                   "Property": "wh_id"
@@ -125,7 +125,7 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Fct_DCs"
+                      "Entity": "Dim_DCs"
                     }
                   },
                   "Property": "Site"
@@ -143,7 +143,7 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Fct_DCs"
+                      "Entity": "Dim_DCs"
                     }
                   },
                   "Property": "wh_name"
@@ -279,7 +279,7 @@
           "Column": {
             "Expression": {
               "SourceRef": {
-                "Entity": "Fct_DCs"
+                "Entity": "Dim_DCs"
               }
             },
             "Property": "Site"
@@ -293,7 +293,7 @@
           "Column": {
             "Expression": {
               "SourceRef": {
-                "Entity": "Fct_DCs"
+                "Entity": "Dim_DCs"
               }
             },
             "Property": "wh_name"
@@ -307,7 +307,7 @@
           "Column": {
             "Expression": {
               "SourceRef": {
-                "Entity": "Fct_DCs"
+                "Entity": "Dim_DCs"
               }
             },
             "Property": "wh_id"

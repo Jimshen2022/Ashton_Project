@@ -1,0 +1,46 @@
+table Dim_Department
+	lineageTag: a666c323-8bf3-4d29-863a-b93b566c081a
+
+	column Macro_Category
+		lineageTag: ae2ed8b4-8079-417c-9a07-7f8b9e2f00ad
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Macro_Category]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Display_Department
+		lineageTag: 100bb799-4f6c-43e1-8b69-ca0e3f882026
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Display_Department]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Raw_Department_Desc
+		lineageTag: db7ef91a-457d-47e8-a883-f1252459371e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Raw_Department_Desc]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'New Calculated Table' = calculated
+		mode: import
+		source =
+				
+				DATATABLE(
+				    "Macro_Category", STRING,
+				    "Display_Department", STRING,
+				    "Raw_Department_Desc", STRING,
+				    {
+				        {"Outbound", "Billable Shipping", "Shipping - Non-Ecomm"},
+				        {"Outbound", "Ecomm", "Ecomm Shipments"},
+				        {"Inbound", "Case Good Receive", "CG - Receiving"},
+				        {"Inbound", "UPH Receive", "UPH - Receiving"},
+				        {"Line Clearing", "Line Clearing", "DOM Line Clearing"},
+				        {"Line Clearing", "Line Clearing", "UPH Line Clearing"},
+				        {"Transfer Out", "Transfer Out", "Outbound Xfers"}
+				    }
+				)
+
