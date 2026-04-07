@@ -1,0 +1,90 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "8df5d7f83f0c8271eb93",
+  "position": {
+    "x": 275.640802092415,
+    "y": 120.5231037489102,
+    "z": 1001,
+    "height": 505.52746294681776,
+    "width": 610.42720139494327,
+    "tabOrder": 2001
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Columns": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Department"
+                    }
+                  },
+                  "Property": "Display_Department"
+                }
+              },
+              "queryRef": "Dim_Department.Display_Department",
+              "nativeQueryRef": "Display_Department",
+              "active": true
+            }
+          ]
+        },
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Calendar"
+                    }
+                  },
+                  "Property": "SaturdayDate"
+                }
+              },
+              "queryRef": "Dim_Calendar.SaturdayDate",
+              "nativeQueryRef": "SaturdayDate",
+              "active": true
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "3f0095f26ca6b2d5e19e",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim_Department"
+              }
+            },
+            "Property": "Display_Department"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "3f934fcd4d1d38fbca29",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim_Calendar"
+              }
+            },
+            "Property": "SaturdayDate"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

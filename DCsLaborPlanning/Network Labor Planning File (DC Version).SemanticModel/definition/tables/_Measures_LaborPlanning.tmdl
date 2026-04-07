@@ -105,6 +105,61 @@ table _Measures_LaborPlanning
 		displayFolder: 03. DC Quickviews
 		lineageTag: 970ddeab-d442-4fb5-8c09-61fefbc7caf1
 
+	measure Dynamic_Adj_OB_Volume = ```
+			
+			// 直接抓取单量滑动条，没拉动就默认是 0
+			VAR Current_Adj = SELECTEDVALUE('FCST_Adj_Pct'[FCST_Adj_Pct], 0)
+			RETURN 
+			[Total_OB_Volume] * (1 + Current_Adj)
+			```
+		formatString: #,0
+		displayFolder: 02. Core Engines
+		lineageTag: d214efbd-92c2-43a3-9d04-934c4ab09a55
+
+	measure Dynamic_Adj_IB_Volume = ```
+			
+			VAR Current_Adj = SELECTEDVALUE('FCST_Adj_Pct'[FCST_Adj_Pct], 0)
+			RETURN 
+			[Total_IB_Volume] * (1 + Current_Adj)
+			```
+		formatString: #,0
+		displayFolder: 02. Core Engines
+		lineageTag: 993d673d-851b-49ad-b890-9ea98ce40796
+
+	measure Mix_Ecomm_Pct = DIVIDE(CALCULATE(SUM('Fct_DemandFulfillmentSQL'[DemandFulfillment]), 'Fct_DemandFulfillmentSQL'[Channel] = "Ecomm"), [Total_OB_Volume])
+		formatString: 0.0%
+		displayFolder: 01. Core Base
+		lineageTag: 2049e35f-1f65-4e48-9f1c-3476347f447f
+
+	measure Dynamic_Required_HC = ```
+			
+			SUMX(
+			    VALUES('Fct_LaborRollups'[Department_Desc]),
+			    
+			    VAR Current_Dept = MAX('Fct_LaborRollups'[Department_Desc])
+			    VAR Ecomm_Pct = [Mix_Ecomm_Pct]
+			    VAR Billable_Pct = 1 - Ecomm_Pct
+			    
+			    // 动态调整后的单量分摊
+			    VAR Dept_Volume = 
+			        SWITCH(TRUE(),
+			            Current_Dept = "Ecomm", [Dynamic_Adj_OB_Volume] * Ecomm_Pct,
+			            Current_Dept = "Shipping", [Dynamic_Adj_OB_Volume] * Billable_Pct,
+			            Current_Dept = "Receiving" || Current_Dept = "Inbound", [Dynamic_Adj_IB_Volume],
+			            BLANK()
+			        )
+			    
+			    VAR Dept_PPH = [Actual_PPH_Avg]
+			    
+			    // 💡 绝对防御：直接在这里抓取工时滑动条，没拉动就默认 40H
+			    VAR Target_Hrs = SELECTEDVALUE('Target_Hours'[Target_Hours], 40) 
+			    
+			    RETURN DIVIDE(Dept_Volume, (Dept_PPH * Target_Hrs))
+			)
+			```
+		displayFolder: 02. Core Engines
+		lineageTag: 547ebec1-d22f-40d3-8a41-a85b2a68f43f
+
 	partition _Measures_LaborPlanning = m
 		mode: import
 		source =

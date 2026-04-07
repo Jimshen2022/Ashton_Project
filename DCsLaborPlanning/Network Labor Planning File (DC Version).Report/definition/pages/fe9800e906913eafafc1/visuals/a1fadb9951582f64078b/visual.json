@@ -57,47 +57,6 @@
                   "Value": "0D"
                 }
               }
-            },
-            "filter": {
-              "filter": {
-                "Version": 2,
-                "From": [
-                  {
-                    "Name": "f",
-                    "Entity": "Dim_DCs",
-                    "Type": 0
-                  }
-                ],
-                "Where": [
-                  {
-                    "Condition": {
-                      "In": {
-                        "Expressions": [
-                          {
-                            "Column": {
-                              "Expression": {
-                                "SourceRef": {
-                                  "Source": "f"
-                                }
-                              },
-                              "Property": "Site"
-                            }
-                          }
-                        ],
-                        "Values": [
-                          [
-                            {
-                              "Literal": {
-                                "Value": "'ADV'"
-                              }
-                            }
-                          ]
-                        ]
-                      }
-                    }
-                  }
-                ]
-              }
             }
           }
         }
@@ -105,5 +64,23 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "d8fb04792aa469c00d43"
+  "parentGroupName": "d8fb04792aa469c00d43",
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "5c780bf7ce1d3babc227",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim_DCs"
+              }
+            },
+            "Property": "Site"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
 }
