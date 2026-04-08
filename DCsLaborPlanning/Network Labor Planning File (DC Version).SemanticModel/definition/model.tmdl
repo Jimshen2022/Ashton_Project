@@ -31,6 +31,7 @@ ref table Dim_Department
 ref table _Measures_LaborPlanning
 ref table Target_Hours
 ref table FCST_Adj_Pct
+ref table Dim_Product
 
 ref cultureInfo en-US
 

@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "b7811013a5742ec15865",
   "position": {
-    "x": 9.8884120171673828,
-    "y": 0,
+    "x": 9.6563285834031856,
+    "y": 178.10561609388097,
     "z": 0,
-    "height": 280.17167381974247,
-    "width": 1270.1115879828326,
+    "height": 457.06621961441743,
+    "width": 1270.3436714165969,
     "tabOrder": 0
   },
   "visual": {
@@ -28,104 +28,6 @@
               },
               "queryRef": "Dim_Calendar.Date",
               "nativeQueryRef": "Date"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures_LaborPlanning"
-                    }
-                  },
-                  "Property": "60-Day Recruiting Need"
-                }
-              },
-              "queryRef": "_Measures_LaborPlanning.60-Day Recruiting Need",
-              "nativeQueryRef": "60-Day Recruiting Need"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures_LaborPlanning"
-                    }
-                  },
-                  "Property": "13-Week Rolling TO Rate"
-                }
-              },
-              "queryRef": "_Measures_LaborPlanning.13-Week Rolling TO Rate",
-              "nativeQueryRef": "13-Week Rolling TO Rate"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures_LaborPlanning"
-                    }
-                  },
-                  "Property": "Active Requisitions (Hiring)"
-                }
-              },
-              "queryRef": "_Measures_LaborPlanning.Active Requisitions (Hiring)",
-              "nativeQueryRef": "Active Requisitions (Hiring)"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures_LaborPlanning"
-                    }
-                  },
-                  "Property": "Forecasted Terminations (60 Days)"
-                }
-              },
-              "queryRef": "_Measures_LaborPlanning.Forecasted Terminations (60 Days)",
-              "nativeQueryRef": "Forecasted Terminations (60 Days)"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures_LaborPlanning"
-                    }
-                  },
-                  "Property": "Actual_PPH_Avg"
-                }
-              },
-              "queryRef": "_Measures_LaborPlanning.Actual_PPH_Avg",
-              "nativeQueryRef": "Actual_PPH_Avg"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures_LaborPlanning"
-                    }
-                  },
-                  "Property": "Dynamic_Required_HC"
-                }
-              },
-              "queryRef": "_Measures_LaborPlanning.Dynamic_Required_HC",
-              "nativeQueryRef": "Dynamic_Required_HC"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures_LaborPlanning"
-                    }
-                  },
-                  "Property": "Mix_Ecomm_Pct"
-                }
-              },
-              "queryRef": "_Measures_LaborPlanning.Mix_Ecomm_Pct",
-              "nativeQueryRef": "Mix_Ecomm_Pct"
             },
             {
               "field": {
@@ -176,104 +78,6 @@
           }
         },
         "type": "Categorical"
-      },
-      {
-        "name": "eb243aa83f825b7a80dc",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures_LaborPlanning"
-              }
-            },
-            "Property": "60-Day Recruiting Need"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "b437d751e22089a43057",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures_LaborPlanning"
-              }
-            },
-            "Property": "13-Week Rolling TO Rate"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "b6b9df82cb676fc91b5a",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures_LaborPlanning"
-              }
-            },
-            "Property": "Active Requisitions (Hiring)"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "f3e5dd232dcde49fe4e6",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures_LaborPlanning"
-              }
-            },
-            "Property": "Forecasted Terminations (60 Days)"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "fa8cbdbcecfb7b7a44fc",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures_LaborPlanning"
-              }
-            },
-            "Property": "Actual_PPH_Avg"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "3d5cc6fb74a0b57a9a7f",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures_LaborPlanning"
-              }
-            },
-            "Property": "Dynamic_Required_HC"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "f6087835d8ab6029b678",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures_LaborPlanning"
-              }
-            },
-            "Property": "Mix_Ecomm_Pct"
-          }
-        },
-        "type": "Advanced"
       },
       {
         "name": "6954fdfe4e0a6e92b1fb",

@@ -1,0 +1,49 @@
+table Dim_Product
+	lineageTag: b35f3d67-5aa4-4ab2-ad6a-f8f9be2a586b
+
+	column Product_Category
+		lineageTag: e85da144-05d0-4e24-b9a6-e5bca3296954
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Product_Category]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Product_Category1
+		lineageTag: b63cad78-60fb-45e2-8f21-87cd6f56d9e4
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Product_Category1]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Product_Category2
+		lineageTag: 4216a93d-fe5d-41cc-b342-871f07fe7514
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Product_Category2]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'New Calculated Table' = calculated
+		mode: import
+		source = ```
+				
+				DATATABLE(
+				    "Product_Category", STRING,
+				    "Product_Category1", STRING,
+				    "Product_Category2", STRING,
+				    
+				    {
+				        {"Casegoods", "Domestic Casegoods","Casegoods"},
+				        {"Casegoods", "Import Bedding","Casegoods"},
+				        {"Casegoods", "Domestic Bedding","Casegoods"},
+				        {"Casegoods", "Import Casegoods","Casegoods"},        
+				        {"UPH", "Upholstery","Upholstery"},
+				        {"UPH", "Imported Upholstery","Upholstery"}
+				
+				    }
+				)
+				
+				```
+

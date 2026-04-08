@@ -49,3 +49,11 @@ relationship b15b0da1-77b3-9e8b-b467-a86c5f262925
 	fromColumn: Fct_LaborRollups.Activity_Desc
 	toColumn: Dim_Department.Raw_Department_Desc
 
+relationship 4b06a8f3-6f0c-9e0a-b89c-ef2154b03138
+	fromColumn: Fct_DemandFulfillmentSQL.AFIFinanceDivision
+	toColumn: Dim_Product.Product_Category1
+
+relationship 702c30e6-24c3-8ffd-875c-bd416ed5e38d
+	fromColumn: Fct_ReceiptsSQL.FinancialDivision
+	toColumn: Dim_Product.Product_Category1
+
