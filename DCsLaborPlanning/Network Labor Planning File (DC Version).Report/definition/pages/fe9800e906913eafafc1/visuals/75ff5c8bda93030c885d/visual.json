@@ -87,5 +87,23 @@
     },
     "drillFilterOtherVisuals": true
   },
-  "parentGroupName": "d8fb04792aa469c00d43"
+  "parentGroupName": "d8fb04792aa469c00d43",
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "56a15ce2f47cf67f5a8a",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim_Calendar"
+              }
+            },
+            "Property": "SaturdayDate"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
 }

@@ -26,12 +26,12 @@ table _Measures_LaborPlanning
 		displayFolder: 1. Efficiency & Cost
 		lineageTag: 61a56c35-e361-42f7-9e96-8628e28eb893
 
-	measure 'Current Working HC' = SUM('Fct_HR_Parameters'[Working_HC])
+	measure 'Current Working HC' = SUM('Fct_LaborRollups'[Headcount_Total])
 		formatString: #,##0
 		displayFolder: 2. Headcount Control
 		lineageTag: 86ef10ee-e33e-4551-ad47-5ab612329114
 
-	measure 'Target HC' = SUM('Fct_HR_Parameters'[Target_HC])
+	measure 'Target HC' = [Dynamic_Required_HC]
 		formatString: #,##0
 		displayFolder: 2. Headcount Control
 		lineageTag: 0ef291d4-69f2-4e26-9675-5d12f5a7548c
@@ -41,11 +41,7 @@ table _Measures_LaborPlanning
 		displayFolder: 2. Headcount Control
 		lineageTag: 0bfdd4b0-bd0c-4e67-b475-cdcf8d1c8ee2
 
-	measure '13-Week Rolling TO Rate' =
-			CALCULATE(
-			    DIVIDE(SUM('Fct_HR_Parameters'[Terminations]), [Current Working HC], 0),
-			    DATESINPERIOD('Dim_Calendar'[Date], MAX('Dim_Calendar'[Date]), -13, WEEK)
-			)
+	measure '13-Week Rolling TO Rate' = 0.05
 		formatString: 0.00%
 		displayFolder: 3. Recruiting Planning
 		lineageTag: e61be2c8-e0f2-47eb-a50b-3dea2834c9ad
@@ -60,51 +56,91 @@ table _Measures_LaborPlanning
 		displayFolder: 3. Recruiting Planning
 		lineageTag: cee38405-f4fe-4a59-88ed-3ed2e52ad35a
 
-	measure 'Active Requisitions (Hiring)' = SUM('Fct_HR_Parameters'[Hires])
+	measure 'Active Requisitions (Hiring)' = 0
 		formatString: #,##0
 		displayFolder: 3. Recruiting Planning
 		lineageTag: c2e4d682-50b8-4a54-9905-fddb620da941
 
 	measure 'OT Alert Flag' = ```
-			IF([Network OT %] > 0.15, 
+			IF([Network OT %] > 0.05,
 			    "🚨 High OT Risk (" & FORMAT([Network OT %], "0.0%") & ")", 
-			    BLANK()
+			    "✅ OT Normal (" & FORMAT([Network OT %], "0.0%") & ")"
 			)
 			```
 		displayFolder: 4. Audit & Alerts
 		lineageTag: 30058685-9c7c-4773-8457-1b49866f8ee7
 
 	measure Dynamic_Required_HC = ```
-			
 			SUMX(
-			    VALUES('Fct_LaborRollups'[Department_Desc]),
+			    VALUES('Fct_LaborRollups'[Activity_Desc]),
 			    
-			    VAR Current_Dept = MAX('Fct_LaborRollups'[Department_Desc])
-			    VAR Ecomm_Pct = [Mix_Ecomm_Pct]
+			    VAR Current_Activity = MAX('Fct_LaborRollups'[Activity_Desc])
+			
+			    // 1. Fetch Mix Percentages
+			    VAR Ecomm_Pct = COALESCE([Mix_Ecomm_Pct], 0)
 			    VAR Billable_Pct = 1 - Ecomm_Pct
 			    
-			    // 1. 动态单量
+			    VAR UPH_Pct = COALESCE([Mix_UPH_Pct], 0)
+			    VAR CG_Pct = 1 - UPH_Pct
+			
+			    // Fetch Adjustment Factor
+			    VAR Adj_Factor = 1 + COALESCE(SELECTEDVALUE('FCST_Adj_Pct'[FCST_Adj_Pct]), 0)
+			
+			    // 2. Dynamic Volume Allocation by Activity
 			    VAR Dept_Volume = 
 			        SWITCH(TRUE(),
-			            Current_Dept = "Ecomm", [Total_OB_Volume] * (1 + SELECTEDVALUE('FCST_Adj_Pct'[FCST_Adj_Pct], 0)) * Ecomm_Pct,
-			            Current_Dept = "Shipping", [Total_OB_Volume] * (1 + SELECTEDVALUE('FCST_Adj_Pct'[FCST_Adj_Pct], 0)) * Billable_Pct,
-			            // 👇 这里修复了！必须写两遍 Current_Dept = 
-			            Current_Dept = "Receiving" || Current_Dept = "Inbound", [Total_IB_Volume],
+			            Current_Activity = "Ecomm Shipments", [Total_OB_Volume] * Adj_Factor * Ecomm_Pct,
+			            Current_Activity = "Shipping - Non-Ecomm", [Total_OB_Volume] * Adj_Factor * Billable_Pct,
+			            Current_Activity = "UPH - Receiving", [Total_IB_Volume] * Adj_Factor * UPH_Pct,
+			            Current_Activity = "CG - Receiving", [Total_IB_Volume] * Adj_Factor * CG_Pct,
 			            BLANK()
 			        )
 			    
-			    // 2. 获取效率，如果底层数据是空或0，强制给个保底值(例如 15) 防止报错
+			    // 3. Efficiency Guardrail (Fallback to 15 PPH if blank/zero)
 			    VAR Raw_PPH = [Actual_PPH_Avg]
-			    VAR Dept_PPH = IF(ISBLANK(Raw_PPH) || Raw_PPH = 0, 15, Raw_PPH) 
+			    VAR Dept_PPH = IF(ISBLANK(Raw_PPH) || Raw_PPH = 0, 15, Raw_PPH)
 			    
-			    // 3. 🎯 核心接线：强制抓取切片器！如果没选，默认 40
-			    VAR Target_Hrs = SELECTEDVALUE('Target_Hours'[Target_Hours], 40) 
+			    // 4. Target Hours from Slicer
+			    VAR Target_Hrs = COALESCE(SELECTEDVALUE('Target_Hours'[Target_Hours]), 40)
 			    
-			    // 安全除法：如果还是除以 0，返回空白而不是 Infinity
-			    RETURN DIVIDE(Dept_Volume, (Dept_PPH * Target_Hrs), BLANK())
+			    // Safe Division
+			    RETURN IF(ISBLANK(Dept_Volume), BLANK(), DIVIDE(Dept_Volume, (Dept_PPH * Target_Hrs), BLANK()))
 			)
 			```
 		lineageTag: 9bd5f598-0f9d-4525-8e63-a77674be5584
+
+	measure Total_OB_Volume = SUM('Fct_DemandFulfillmentSQL'[DemandFulfillment])
+		formatString: #,##0
+		lineageTag: 031f01df-7293-4638-8ef6-e0496bb0c001
+
+	measure Total_IB_Volume =
+			SUM('Fct_ReceiptsSQL'[PurchaseOrderPcs]) +
+			SUM('Fct_ReceiptsSQL'[ProductionPcs]) +
+			SUM('Fct_ReceiptsSQL'[TransferInPcs])
+		formatString: #,##0
+		lineageTag: 4ed89367-cb63-495a-aae2-3cee1efdcf8a
+
+	measure Mix_Ecomm_Pct =
+			DIVIDE(
+			    SUM('Fct_InvoicingSQL'[Ecommerce Volume]),
+			    SUM('Fct_InvoicingSQL'[Billable Volume]) + SUM('Fct_InvoicingSQL'[Ecommerce Volume]),
+			    0
+			)
+		formatString: 0.00%
+		lineageTag: a1b2c3d4-e5f6-a7b8-c9d0-e1f2a3b4c5d6
+
+	measure Mix_UPH_Pct =
+			DIVIDE(
+			    SUM('Fct_LaborRollups'[Units_UPH]),
+			    SUM('Fct_LaborRollups'[Units_Gross]),
+			    0
+			)
+		formatString: 0.00%
+		lineageTag: b2c3d4e5-f6a7-b8c9-d0e1-f2a3b4c5d6e7
+
+	measure Actual_PPH_Avg = DIVIDE(SUM('Fct_LaborRollups'[Units_Gross]), SUM('Fct_LaborRollups'[Hours_Total]), 0)
+		formatString: 0.00
+		lineageTag: f6e5d4c3-b2a1-0f9e-8d7c-6b5a4f3e2d1c
 
 	column Column1
 		dataType: string
